@@ -17,7 +17,6 @@ set(commands_sources
 
 set(object_headers
     objects/Objects.h
-    objects/Objects_internal.h
 )
 
 set(object_sources
