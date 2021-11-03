@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 
+#include "Objects_internal.h"
 #include "../types/Property.h"
 
 namespace otg {
@@ -32,16 +33,8 @@ template <typename... Args>
 AbstractObject::AbstractObject(Args &&... args)
     : m_propertys{std::forward<Args>(args)...} {}
 
-class ObjectTank : public AbstractObject
-{
-public:
-    ObjectTank();
-};
-
-class ObjectBunker : public AbstractObject
-{
-public:
-    ObjectBunker();
-};
+SPECIFY_OBJECT(ObjectTank)
+SPECIFY_OBJECT(ObjectBunker)
+SPECIFY_OBJECT(ObjectTree)
 
 }

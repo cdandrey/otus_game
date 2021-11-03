@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <variant>
 
+#include "Property_internal.h"
 #include "Vector.h"
 
 namespace otg {
@@ -14,30 +15,20 @@ enum class PropertyKey
     Velocity,
     Health,
     Fuel,
-    Ammo
+    Ammo,
+    Direction,
+    VelocityRotate
 };
-
-using PropertyValue = std::variant<int,Vector>;
-
-template<PropertyKey key>
-struct Property {};
-
-#define SPECIFY_PROPERTY_TYPE(Key,Type)                               \
-    template<>                                                        \
-    struct Property<PropertyKey::Key>                                 \
-    {                                                                 \
-        using type = Type;                                            \
-        static constexpr PropertyKey key = PropertyKey::Key;          \
-        static constexpr auto init_value = std::pair{key,type{}};     \
-    };                                                                \
-    using Key##Property = Property<PropertyKey::Key>;                 \
 
 SPECIFY_PROPERTY_TYPE(Position,otg::Vector)
 SPECIFY_PROPERTY_TYPE(Velocity,otg::Vector)
 SPECIFY_PROPERTY_TYPE(Health,int)
 SPECIFY_PROPERTY_TYPE(Fuel,int)
 SPECIFY_PROPERTY_TYPE(Ammo,int)
+SPECIFY_PROPERTY_TYPE(Direction,otg::Vector)
+SPECIFY_PROPERTY_TYPE(VelocityRotate,otg::Vector)
 
+using PropertyValue = std::variant<int,Vector>;
 using PropertyValueOpt = std::optional<PropertyValue>;
 using PropertyMap = std::unordered_map<PropertyKey,PropertyValue>;
 
