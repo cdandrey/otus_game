@@ -3,7 +3,9 @@
 #include "../src/objects/Objects.cpp"
 #include "../src/types/Vector.cpp"
 #include "../src/commands/AdapterMovable.cpp"
+#include "../src/commands/AdapterRotable.cpp"
 #include "../src/commands/CommandMovable.cpp"
+#include "../src/commands/CommandRotable.cpp"
 
 namespace detail {
 
@@ -70,6 +72,30 @@ TEST(tb_main,move)
     try {
         const auto actualPosition = std::get<Vector>(tank->getProperty(PropertyKey::Position).value_or(Vector{-1,-1,-1}));
         EXPECT_EQ(actualPosition,expectPosition);
+    }
+    catch (std::bad_variant_access&) {
+        FAIL() << "Invalid property type";
+    }
+}
+
+TEST(tb_main,rotate)
+{
+    using namespace otg;
+
+    AbstractObjectPtr tank = std::make_shared<ObjectTank>();
+    
+    tank->setProperty(PropertyKey::Direction,DirectionProperty::type{0,1,0});
+    tank->setProperty(PropertyKey::VelocityRotate,VelocityRotateProperty::type{1,0,0});
+
+    AbstractRotablePtr adapterRotate = std::make_shared<AdapterRotable>(tank);
+    AbstractCommandPtr commandRotate = std::make_shared<CommandRotable>(adapterRotate);
+    tank = commandRotate->execute();
+
+    const DirectionProperty::type expectDirection{1,1,0};
+    
+    try {
+        const auto actualDirection = std::get<DirectionProperty::type>(tank->getProperty(PropertyKey::Direction).value_or(DirectionProperty::type{0,0,0}));
+        EXPECT_EQ(actualDirection,expectDirection);
     }
     catch (std::bad_variant_access&) {
         FAIL() << "Invalid property type";
