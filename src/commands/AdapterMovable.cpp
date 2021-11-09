@@ -14,7 +14,7 @@ PositionProperty::type AdapterMovable::getPosition() const
     using Type = PositionProperty::type;
 
     try {
-        return std::get<Type>(m_obj->getProperty(PositionProperty::key).value_or(Type{}));
+        return std::any_cast<Type>(m_obj->getProperty(PositionProperty::key).value_or(Type{}));
     } 
     catch (std::bad_variant_access&) {
     }
@@ -32,7 +32,7 @@ VelocityProperty::type AdapterMovable::getVelocity() const
     using Type = VelocityProperty::type;
 
     try {
-        return std::get<Type>(m_obj->getProperty(VelocityProperty::key).value_or(Type{}));
+        return std::any_cast<Type>(m_obj->getProperty(VelocityProperty::key).value_or(Type{}));
     } 
     catch (std::bad_variant_access&) {
     }

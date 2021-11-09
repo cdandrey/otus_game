@@ -70,7 +70,7 @@ TEST(tb_main,move)
     const Vector expectPosition{5,8,0};
     
     try {
-        const auto actualPosition = std::get<Vector>(tank->getProperty(PropertyKey::Position).value_or(Vector{-1,-1,-1}));
+        const auto actualPosition = std::any_cast<Vector>(tank->getProperty(PropertyKey::Position).value_or(Vector{-1,-1,-1}));
         EXPECT_EQ(actualPosition,expectPosition);
     }
     catch (std::bad_variant_access&) {
@@ -94,7 +94,7 @@ TEST(tb_main,rotate)
     const DirectionProperty::type expectDirection{1,1,0};
     
     try {
-        const auto actualDirection = std::get<DirectionProperty::type>(tank->getProperty(PropertyKey::Direction).value_or(DirectionProperty::type{0,0,0}));
+        const auto actualDirection = std::any_cast<DirectionProperty::type>(tank->getProperty(PropertyKey::Direction).value_or(DirectionProperty::type{0,0,0}));
         EXPECT_EQ(actualDirection,expectDirection);
     }
     catch (std::bad_variant_access&) {
