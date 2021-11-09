@@ -3,19 +3,19 @@
 
 namespace otg {
 
-enum class PropertyKey;
+using PropertyKey = std::string_view;
 
-template<PropertyKey key>
+template<const PropertyKey &key>
 struct Property {};
 
-#define SPECIFY_PROPERTY_TYPE(Key,Type)                               \
+#define SPECIFY_PROPERTY_TYPE(Key,Type,UsingName)                     \
     template<>                                                        \
-    struct Property<PropertyKey::Key>                                 \
+    struct Property<Key>                                              \
     {                                                                 \
         using type = Type;                                            \
-        static constexpr PropertyKey key = PropertyKey::Key;          \
+        static constexpr PropertyKey key = Key;                  \
         static constexpr auto init_value = std::pair{key,type{}};     \
     };                                                                \
-    using Key##Property = Property<PropertyKey::Key>;                 \
+    using UsingName = Property<Key>;                                  \
 
 }
