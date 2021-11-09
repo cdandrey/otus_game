@@ -10,9 +10,9 @@ struct Vector
     int y = 0;
     int z = 0;
 
-    Vector& operator+=(const Vector& lhs);
-    friend Vector operator+(const Vector& rhs,const Vector& lhs);
-    friend bool operator==(const Vector& rhs,const Vector& lhs);
+    Vector& operator+=(const Vector& rhs);
+    friend Vector operator+(Vector lhs,const Vector& rhs);
+    friend bool operator==(const Vector& lhs,const Vector& rhs);
     std::string toString() const;
 };
 

@@ -2,23 +2,24 @@
 
 namespace otg {
 
-Vector& Vector::operator+=(const Vector& lhs)
+Vector& Vector::operator+=(const Vector& rhs)
 {
-    x += lhs.x;
-    y += lhs.y;
-    z += lhs.z;
+    x += rhs.x;
+    y += rhs.y;
+    z += rhs.z;
 
     return *this;
 }
 
-Vector operator+(const Vector& rhs,const Vector &lhs)
+Vector operator+(Vector lhs,const Vector &rhs)
 {
-    return Vector{rhs.x + lhs.x,rhs.y + lhs.y,rhs.z + lhs.z};
+    lhs += rhs;
+    return lhs;
 }
 
-bool operator== (const Vector& rhs,const Vector& lhs)
+bool operator== (const Vector& lhs,const Vector& rhs)
 {
-    return (rhs.x == lhs.x) && (rhs.y == lhs.y) && (rhs.z == lhs.z);
+    return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
 
 std::string Vector::toString() const
