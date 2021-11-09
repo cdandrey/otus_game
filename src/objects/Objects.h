@@ -11,14 +11,14 @@ namespace otg
 class AbstractObject
 {
 public:
-    PropertyValueOpt getProperty(PropertyKey key) const;
-    void setProperty(PropertyKey key, const PropertyValue &value);
 
-protected:
     template <typename... Args>
     explicit AbstractObject(Args &&...args);
 
     virtual ~AbstractObject() = 0;
+
+    PropertyValueOpt getProperty(PropertyKey key) const;
+    void setProperty(PropertyKey key, const PropertyValue &value);
 
 private:
     PropertyMap m_propertys;
