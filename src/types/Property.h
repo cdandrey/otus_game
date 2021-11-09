@@ -2,7 +2,7 @@
 
 #include <optional>
 #include <unordered_map>
-#include <variant>
+#include <any>
 
 #include "Property_internal.h"
 #include "Vector.h"
@@ -28,7 +28,7 @@ SPECIFY_PROPERTY_TYPE(Ammo,int)
 SPECIFY_PROPERTY_TYPE(Direction,otg::Vector)
 SPECIFY_PROPERTY_TYPE(VelocityRotate,otg::Vector)
 
-using PropertyValue = std::variant<int,Vector>;
+using PropertyValue = std::any;
 using PropertyValueOpt = std::optional<PropertyValue>;
 using PropertyMap = std::unordered_map<PropertyKey,PropertyValue>;
 
