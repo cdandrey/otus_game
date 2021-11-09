@@ -12,7 +12,7 @@ public:
 
     virtual PositionProperty::type getPosition() const = 0;
     virtual void setPosition(const PositionProperty::type &value) = 0;
-    virtual VelocityProperty::type getVelocity() const = 0;
+    virtual VelocityRotateProperty::type getVelocity() const = 0;
 
     virtual AbstractObjectPtr getObject() const = 0;
 };
@@ -27,7 +27,7 @@ public:
     
     PositionProperty::type getPosition() const override;
     void setPosition(const PositionProperty::type &value) override;
-    VelocityProperty::type getVelocity() const override;
+    VelocityRotateProperty::type getVelocity() const override;
     AbstractObjectPtr getObject() const override;
 
 private:

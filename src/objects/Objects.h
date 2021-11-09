@@ -5,31 +5,31 @@
 
 #include "../types/Property.h"
 
-namespace otg {
+namespace otg
+{
 
-class AbstractObject {
+class AbstractObject
+{
 public:
-
-  PropertyValueOpt getProperty(PropertyKey key) const;
-  void setProperty(PropertyKey key, const PropertyValue &value);
+    PropertyValueOpt getProperty(PropertyKey key) const;
+    void setProperty(PropertyKey key, const PropertyValue &value);
 
 protected:
+    template <typename... Args>
+    explicit AbstractObject(Args &&...args);
 
-  template <typename... Args>
-  explicit AbstractObject(Args &&... args);
-
-  virtual ~AbstractObject() = 0;
+    virtual ~AbstractObject() = 0;
 
 private:
-  PropertyMap m_propertys;
+    PropertyMap m_propertys;
 
-  bool hasProperty(PropertyKey key) const;
+    bool hasProperty(PropertyKey key) const;
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;
 
 template <typename... Args>
-AbstractObject::AbstractObject(Args &&... args)
+AbstractObject::AbstractObject(Args &&...args)
     : m_propertys{std::forward<Args>(args)...} {}
 
 class ObjectTank : public AbstractObject
@@ -44,4 +44,9 @@ public:
     ObjectBunker();
 };
 
+class ObjectTree : public AbstractObject
+{
+public:
+    ObjectTree();
+};
 }

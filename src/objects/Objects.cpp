@@ -26,19 +26,34 @@ bool AbstractObject::hasProperty(PropertyKey key) const
 }
 
 ObjectTank::ObjectTank()
-        : AbstractObject{PositionProperty::init_value,
-                     VelocityProperty::init_value,
-                     HealthProperty::init_value,
-                     FuelProperty::init_value,
-                     AmmoProperty::init_value}
+    : AbstractObject{
+        PositionProperty::init_value,
+        VelocityProperty::init_value,
+        HealthProperty::init_value,
+        FuelProperty::init_value,
+        AmmoProperty::init_value,
+        DirectionProperty::init_value,
+        VelocityRotateProperty::init_value
+    }
 {
 }
 
 ObjectBunker::ObjectBunker()
-        : AbstractObject{PositionProperty::init_value,
-                     HealthProperty::init_value,
-                     FuelProperty::init_value,
-                     AmmoProperty::init_value}
+    : AbstractObject{
+        PositionProperty::init_value,
+        HealthProperty::init_value,
+        FuelProperty::init_value,
+        AmmoProperty::init_value,
+        DirectionProperty::init_value
+    }
+{
+}
+
+ObjectTree::ObjectTree()
+    : AbstractObject{
+        PositionProperty::init_value,
+        HealthProperty::init_value
+    }
 {
 }
 

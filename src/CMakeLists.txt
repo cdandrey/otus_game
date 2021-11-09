@@ -2,13 +2,17 @@ cmake_minimum_required(VERSION 3.2)
 
 set(commands_headers
     commands/AbstractCommand.h
-    commands/CommandMovable.h
     commands/AdapterMovable.h
+    commands/AdapterRotable.h
+    commands/CommandMovable.h
+    commands/CommandRotable.h
 )
 
 set(commands_sources
-    commands/CommandMovable.cpp
     commands/AdapterMovable.cpp
+    commands/AdapterRotable.cpp
+    commands/CommandMovable.cpp
+    commands/CommandRotable.cpp
 )
 
 set(object_headers
@@ -21,6 +25,7 @@ set(object_sources
 
 set(types_headers
     types/Property.h
+    types/Property_internal.h
     types/Vector.h
 )
 
