@@ -9,23 +9,25 @@
 
 namespace detail {
 
+const std::vector<otg::PropertyKey> listPropertys {
+    otg::PositionProperty::key,
+    otg::VelocityProperty::key,
+    otg::HealthProperty::key,
+    otg::FuelProperty::key,
+    otg::AmmoProperty::key,
+    otg::DirectionProperty::key,
+    otg::VelocityRotateProperty::key
+};
+
 using PropertyHas = std::unordered_map<otg::PropertyKey,bool>;
 
 void checkPropertyInit(const otg::AbstractObjectPtr& obj,const PropertyHas &hasProperty) 
 {
     using namespace otg;
 
-    const auto position = obj->getProperty(PositionProperty::key);
-    const auto velocity = obj->getProperty(VelocityProperty::key);
-    const auto health = obj->getProperty(HealthProperty::key);
-    const auto fuel = obj->getProperty(FuelProperty::key);
-    const auto ammo = obj->getProperty(AmmoProperty::key);
-
-    EXPECT_EQ(position.has_value(),hasProperty.at(PositionProperty::key));
-    EXPECT_EQ(velocity.has_value(),hasProperty.at(VelocityProperty::key));
-    EXPECT_EQ(health.has_value(),hasProperty.at(HealthProperty::key));
-    EXPECT_EQ(fuel.has_value(),hasProperty.at(FuelProperty::key));
-    EXPECT_EQ(ammo.has_value(),hasProperty.at(AmmoProperty::key));
+    for (auto key : listPropertys) {
+        EXPECT_EQ(obj->getProperty(key).has_value(),hasProperty.at(key)) << "PropertyKey: " << key;
+    } 
 }
 
 }
@@ -37,7 +39,9 @@ TEST(tb_main,objectBunkerInit)
                                  {otg::VelocityProperty::key,false},
                                  {otg::HealthProperty::key,true},
                                  {otg::FuelProperty::key,true},
-                                 {otg::AmmoProperty::key,true}};
+                                 {otg::AmmoProperty::key,true},
+                                 {otg::DirectionProperty::key,true},
+                                 {otg::VelocityRotateProperty::key,false}};
 
     detail::checkPropertyInit(obj,property);
 }
@@ -49,7 +53,24 @@ TEST(tb_main,objectTankInit)
                                  {otg::VelocityProperty::key,true},
                                  {otg::HealthProperty::key,true},
                                  {otg::FuelProperty::key,true},
-                                 {otg::AmmoProperty::key,true}};
+                                 {otg::AmmoProperty::key,true},
+                                 {otg::DirectionProperty::key,true},
+                                 {otg::VelocityRotateProperty::key,true}};
+
+    
+    detail::checkPropertyInit(obj,property);
+}
+
+TEST(tb_main,objectTreeInit)
+{
+    const auto obj = std::make_shared<otg::ObjectTree>();
+    detail::PropertyHas property{{otg::PositionProperty::key,true},
+                                 {otg::VelocityProperty::key,false},
+                                 {otg::HealthProperty::key,true},
+                                 {otg::FuelProperty::key,false},
+                                 {otg::AmmoProperty::key,false},
+                                 {otg::DirectionProperty::key,false},
+                                 {otg::VelocityRotateProperty::key,false}};
     
     detail::checkPropertyInit(obj,property);
 }
@@ -69,13 +90,11 @@ TEST(tb_main,move)
 
     const Vector expectPosition{5,8,0};
     
-    try {
-        const auto actualPosition = std::any_cast<Vector>(tank->getProperty(PositionProperty::key).value_or(Vector{-1,-1,-1}));
-        EXPECT_EQ(actualPosition,expectPosition);
-    }
-    catch (std::bad_variant_access&) {
-        FAIL() << "Invalid property type";
-    }
+    using Type = PositionProperty::type;
+    const auto actualPosition = tank->extractPropertyValue<Type>(tank->getProperty(PositionProperty::key));
+
+    ::testing::StaticAssertTypeEq<decltype(expectPosition), decltype(actualPosition)>();
+    EXPECT_EQ(actualPosition,expectPosition);
 }
 
 TEST(tb_main,rotate)
@@ -91,15 +110,13 @@ TEST(tb_main,rotate)
     AbstractCommandPtr commandRotate = std::make_shared<CommandRotable>(adapterRotate);
     tank = commandRotate->execute();
 
-    const DirectionProperty::type expectDirection{1,1,0};
+    const Vector expectDirection{1,1,0};
     
-    try {
-        const auto actualDirection = std::any_cast<DirectionProperty::type>(tank->getProperty(DirectionProperty::key).value_or(DirectionProperty::type{0,0,0}));
-        EXPECT_EQ(actualDirection,expectDirection);
-    }
-    catch (std::bad_variant_access&) {
-        FAIL() << "Invalid property type";
-    }
+    using Type = DirectionProperty::type;
+    const auto actualDirection = tank->extractPropertyValue<Type>(tank->getProperty(DirectionProperty::key).value_or(DirectionProperty::type{0,0,0}));
+
+    ::testing::StaticAssertTypeEq<decltype(expectDirection), decltype(actualDirection)>();
+    EXPECT_EQ(actualDirection,expectDirection);
 }
 
 int main (int argc,char *argv[])
