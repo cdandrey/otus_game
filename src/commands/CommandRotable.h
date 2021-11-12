@@ -11,7 +11,7 @@ public:
     
     explicit CommandRotable(const AbstractRotablePtr &rotable);
 
-    AbstractObjectPtr execute() override;
+    void execute() override;
 
 private:
 

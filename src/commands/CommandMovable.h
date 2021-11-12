@@ -11,7 +11,7 @@ public:
     
     explicit CommandMovable(const AbstractMovablePtr &movable);
 
-    AbstractObjectPtr execute() override;
+    void execute() override;
 
 private:
 

@@ -2,7 +2,7 @@
 
 namespace otg {
 
-AbstractObject::~AbstractObject() {};
+AbstractObject::~AbstractObject() {}
 
 PropertyValueOpt AbstractObject::getProperty(PropertyKey key) const
 {

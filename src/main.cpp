@@ -30,9 +30,9 @@ int main (int, char **)
 
     AbstractMovablePtr adapterMove = std::make_shared<AdapterMovable>(tank);
     AbstractCommandPtr commandMove = std::make_shared<CommandMovable>(adapterMove);
-    tank = commandMove->execute();
+    commandMove->execute();
 
-    std::cout << "Tank position: " << std::any_cast<Vector>(tank->getProperty(PositionProperty::key).value()).toString() << std::endl;
+    std::cout << "Tank position: " << tank->extractPropertyValue<PositionProperty::type>(tank->getProperty(PositionProperty::key)).toString() << std::endl;
     std::cout << "End game" << std::endl;
 
     return 0;

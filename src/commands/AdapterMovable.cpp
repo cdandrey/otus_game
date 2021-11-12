@@ -28,9 +28,4 @@ VelocityProperty::type AdapterMovable::getVelocity() const
     return m_obj->extractPropertyValue<Type>(m_obj->getProperty(VelocityProperty::key));
 }
 
-AbstractObjectPtr AdapterMovable::getObject() const
-{
-    return m_obj;
-}
-
 }
