@@ -10,11 +10,11 @@ class AbstractMovable
 {
 public:
 
+    virtual ~AbstractMovable() = default;
+
     virtual PositionProperty::type getPosition() const = 0;
     virtual void setPosition(const PositionProperty::type &value) = 0;
     virtual VelocityRotateProperty::type getVelocity() const = 0;
-
-    virtual AbstractObjectPtr getObject() const = 0;
 };
 
 using AbstractMovablePtr = std::shared_ptr<AbstractMovable>;
@@ -28,7 +28,6 @@ public:
     PositionProperty::type getPosition() const override;
     void setPosition(const PositionProperty::type &value) override;
     VelocityRotateProperty::type getVelocity() const override;
-    AbstractObjectPtr getObject() const override;
 
 private:
     AbstractObjectPtr m_obj;

@@ -86,7 +86,7 @@ TEST(tb_main,move)
 
     AbstractMovablePtr adapterMove = std::make_shared<AdapterMovable>(tank);
     AbstractCommandPtr commandMove = std::make_shared<CommandMovable>(adapterMove);
-    tank = commandMove->execute();
+    commandMove->execute();
 
     const Vector expectPosition{5,8,0};
     
@@ -108,7 +108,7 @@ TEST(tb_main,rotate)
 
     AbstractRotablePtr adapterRotate = std::make_shared<AdapterRotable>(tank);
     AbstractCommandPtr commandRotate = std::make_shared<CommandRotable>(adapterRotate);
-    tank = commandRotate->execute();
+    commandRotate->execute();
 
     const Vector expectDirection{1,1,0};
     

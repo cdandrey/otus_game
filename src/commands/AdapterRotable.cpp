@@ -28,9 +28,4 @@ VelocityRotateProperty::type AdapterRotable::getVelocityRotate() const
     return m_obj->extractPropertyValue<Type>(m_obj->getProperty(VelocityRotateProperty::key));
 }
 
-AbstractObjectPtr AdapterRotable::getObject() const
-{
-    return m_obj;
-}
-
 }
