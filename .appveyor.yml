@@ -1,4 +1,6 @@
-image: Visual Studio 2019
+image: 
+  - Visual Studio 2017
+  - Visual Studio 2019
 
 init:
   - git config --global core.autocrlf input
@@ -33,13 +35,8 @@ artifacts:
       name: deploy
 
 deploy:
-    description: 'OTUS Tank game has been released.'
     provider: GitHub
-
     auth_token:
         secure: zgoB68eyAR3DVSg0T3Tb3yq5/wzEaScu1qC/Mfiaeci9uXXorkdYcK6v7XLRjYL9
-
     artifact: deploy
     force_update: true
-    on:
-      appveyor_repo_tag: true
