@@ -19,7 +19,7 @@ target_link_libraries(OTG
     OtgLib
 )
 
-if (NOT DEFINED ENV{PC_00330_80000_00000_AA472})
+if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
     
     set(CPACK_GENERATOR DEB)
 
