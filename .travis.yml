@@ -12,9 +12,10 @@ install:
 - export CXX="g++-9"
 
 before_script:
-  #install google-test
+  # install google-test
   - sudo apt-get install libgtest-dev
-  - sudo apt-get install cmake # install cmake
+  # install cmake
+  - sudo apt-get install cmake 
   - cd /usr/src/gtest
   - sudo cmake CMakeLists.txt
   - sudo make
@@ -32,7 +33,15 @@ script:
   - cmake --build . --target package
   - ./test/tb_main
 deploy:
-  provider: script
-  skip_cleanup: true
-  script:
-    - curl -H X-JFrog-Art-Api:$JFROG_API_KEY -XPUT "https://cdandrey.jfrog.io/artifactory/otus_game-debian/pool/OtusTankGame;deb.distribution=trusty;deb.component=main;deb.architecture=amd64;" -T OtusTankGame-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
+  # to JFROG
+  - provider: script
+    skip_cleanup: true
+    script:
+      - curl -H X-JFrog-Art-Api:$JFROG_API_KEY -XPUT "https://cdandrey.jfrog.io/artifactory/otus_game-debian/pool/OtusTankGame;deb.distribution=trusty;deb.component=main;deb.architecture=amd64;" -T OtusTankGame-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
+  # to GitHub Releases
+  - provider: releases
+    tag_name: 0.0.$TRAVIS_BUILD_NUMBER
+    target_commitish: $TRAVIS_COMMIT
+    api_key: $GITHUB_TOKEN
+    file: OtusTankGame-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
+    skip_cleanup: true 

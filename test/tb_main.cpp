@@ -26,7 +26,7 @@ void checkPropertyInit(const otg::AbstractObjectPtr& obj,const PropertyHas &hasP
     using namespace otg;
 
     for (auto key : listPropertys) {
-        EXPECT_EQ(obj->getProperty(key).has_value(),hasProperty.at(key)) << "PropertyKey: " << key;
+        EXPECT_EQ(obj->getProperty(key).has_value(),hasProperty.at(key)) << "PropertyKey: " << std::string{key};
     } 
 }
 
