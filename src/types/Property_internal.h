@@ -13,8 +13,7 @@ struct Property {};
     struct Property<Key>                                              \
     {                                                                 \
         using type = Type;                                            \
-        static constexpr PropertyKey key = Key;                  \
-        static constexpr auto init_value = std::pair{key,type{}};     \
+        static constexpr PropertyKey key = Key;                       \
     };                                                                \
     using UsingName = Property<Key>;                                  \
 

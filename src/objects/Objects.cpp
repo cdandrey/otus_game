@@ -27,32 +27,32 @@ bool AbstractObject::hasProperty(PropertyKey key) const
 
 ObjectTank::ObjectTank()
     : AbstractObject{
-        PositionProperty::init_value,
-        VelocityProperty::init_value,
-        HealthProperty::init_value,
-        FuelProperty::init_value,
-        AmmoProperty::init_value,
-        DirectionProperty::init_value,
-        VelocityRotateProperty::init_value
+        std::pair{PositionProperty::key,PositionProperty::type{}},
+        std::pair{VelocityProperty::key,VelocityProperty::type{}},
+        std::pair{HealthProperty::key,HealthProperty::type{}},
+        std::pair{FuelProperty::key,FuelProperty::type{}},
+        std::pair{AmmoProperty::key,AmmoProperty::type{}},
+        std::pair{DirectionProperty::key,AmmoProperty::type{}},
+        std::pair{VelocityRotateProperty::key,VelocityProperty::type{}}
     }
 {
 }
 
 ObjectBunker::ObjectBunker()
     : AbstractObject{
-        PositionProperty::init_value,
-        HealthProperty::init_value,
-        FuelProperty::init_value,
-        AmmoProperty::init_value,
-        DirectionProperty::init_value
+        std::pair{PositionProperty::key,PositionProperty::type{}},
+        std::pair{HealthProperty::key,HealthProperty::type{}},
+        std::pair{FuelProperty::key,FuelProperty::type{}},
+        std::pair{AmmoProperty::key,AmmoProperty::type{}},
+        std::pair{DirectionProperty::key,AmmoProperty::type{}}
     }
 {
 }
 
 ObjectTree::ObjectTree()
     : AbstractObject{
-        PositionProperty::init_value,
-        HealthProperty::init_value
+        std::pair{PositionProperty::key,PositionProperty::type{}},
+        std::pair{HealthProperty::key,HealthProperty::type{}}
     }
 {
 }

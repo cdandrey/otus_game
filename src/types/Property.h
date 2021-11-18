@@ -21,12 +21,12 @@ constexpr PropertyKey PropertyKeyAmmo = "Ammo";
 constexpr PropertyKey PropertyKeyDirection = "Direction";
 constexpr PropertyKey PropertyKeyVelocityRotate = "VelocityRotate";
 
-SPECIFY_PROPERTY_TYPE(PropertyKeyPosition,otg::Vector,PositionProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyVelocity,otg::Vector,VelocityProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyPosition,Vector,PositionProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyVelocity,Vector,VelocityProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyHealth,int,HealthProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyFuel,int,FuelProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyAmmo,int,AmmoProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyDirection,otg::Vector,DirectionProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyVelocityRotate,otg::Vector,VelocityRotateProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyDirection,Vector,DirectionProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyVelocityRotate,Vector,VelocityRotateProperty)
 
 }
