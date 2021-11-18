@@ -11,9 +11,7 @@ AdapterRotable::AdapterRotable(const AbstractObjectPtr &obj)
 
 DirectionProperty::type AdapterRotable::getDirection() const
 {
-    using Type = DirectionProperty::type;
-
-    return m_obj->extractPropertyValue<Type>(m_obj->getProperty(DirectionProperty::key));
+    return DirectionProperty::cast(m_obj->getProperty(DirectionProperty::key).value());
 }
 
 void AdapterRotable::setDirection(const PositionProperty::type& value)
@@ -23,9 +21,7 @@ void AdapterRotable::setDirection(const PositionProperty::type& value)
 
 VelocityRotateProperty::type AdapterRotable::getVelocityRotate() const
 {
-    using Type = VelocityRotateProperty::type;
-
-    return m_obj->extractPropertyValue<Type>(m_obj->getProperty(VelocityRotateProperty::key));
+    return VelocityProperty::cast(m_obj->getProperty(VelocityRotateProperty::key).value());
 }
 
 }
