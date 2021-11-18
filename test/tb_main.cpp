@@ -90,8 +90,7 @@ TEST(tb_main,move)
 
     const Vector expectPosition{5,8,0};
     
-    using Type = PositionProperty::type;
-    const auto actualPosition = tank->extractPropertyValue<Type>(tank->getProperty(PositionProperty::key));
+    const auto actualPosition = PositionProperty::cast(tank->getProperty(PositionProperty::key).value_or(PositionProperty::type{}));
 
     ::testing::StaticAssertTypeEq<decltype(expectPosition), decltype(actualPosition)>();
     EXPECT_EQ(actualPosition,expectPosition);
@@ -112,8 +111,7 @@ TEST(tb_main,rotate)
 
     const Vector expectDirection{1,1,0};
     
-    using Type = DirectionProperty::type;
-    const auto actualDirection = tank->extractPropertyValue<Type>(tank->getProperty(DirectionProperty::key).value_or(DirectionProperty::type{0,0,0}));
+    const auto actualDirection = DirectionProperty::cast(tank->getProperty(DirectionProperty::key).value_or(DirectionProperty::type{}));
 
     ::testing::StaticAssertTypeEq<decltype(expectDirection), decltype(actualDirection)>();
     EXPECT_EQ(actualDirection,expectDirection);

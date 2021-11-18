@@ -9,7 +9,6 @@
 
 namespace otg {
 
-using PropertyValue = std::any;
 using PropertyValueOpt = std::optional<PropertyValue>;
 using PropertyMap = std::unordered_map<PropertyKey,PropertyValue>;
 

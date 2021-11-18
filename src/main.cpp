@@ -18,13 +18,13 @@ int main (int, char **)
     std::cin >> x >> y;
     
     tank->setProperty(PositionProperty::key,Vector{x,y,0});
-    std::cout << "Tank position: " << std::any_cast<Vector>(tank->getProperty(PositionProperty::key).value()).toString() << std::endl;
+    std::cout << "Tank position: " << PositionProperty::cast(tank->getProperty(PositionProperty::key).value()).toString() << std::endl;
 
     std::cout << "set tank velocity (dx,dy)" << std::endl;
     std::cin >> x >> y;
 
     tank->setProperty(VelocityProperty::key,Vector{x,y,0});
-    std::cout << "Tank velocity: " << std::any_cast<Vector>(tank->getProperty(VelocityProperty::key).value()).toString() << std::endl;
+    std::cout << "Tank velocity: " << VelocityProperty::cast(tank->getProperty(VelocityProperty::key).value()).toString() << std::endl;
 
     std::cout << "Move tank..." << std::endl;
 
@@ -32,7 +32,7 @@ int main (int, char **)
     AbstractCommandPtr commandMove = std::make_shared<CommandMovable>(adapterMove);
     commandMove->execute();
 
-    std::cout << "Tank position: " << tank->extractPropertyValue<PositionProperty::type>(tank->getProperty(PositionProperty::key)).toString() << std::endl;
+    std::cout << "Tank position: " << PositionProperty::cast(tank->getProperty(PositionProperty::key).value()).toString() << std::endl;
     std::cout << "End game" << std::endl;
 
     return 0;

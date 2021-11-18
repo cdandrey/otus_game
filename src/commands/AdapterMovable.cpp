@@ -11,9 +11,7 @@ AdapterMovable::AdapterMovable(const AbstractObjectPtr &obj)
 
 PositionProperty::type AdapterMovable::getPosition() const
 {
-    using Type = PositionProperty::type;
-
-    return m_obj->extractPropertyValue<Type>(m_obj->getProperty(PositionProperty::key));
+    return PositionProperty::cast(m_obj->getProperty(PositionProperty::key).value());
 }
 
 void AdapterMovable::setPosition(const PositionProperty::type& value)
@@ -23,9 +21,7 @@ void AdapterMovable::setPosition(const PositionProperty::type& value)
 
 VelocityProperty::type AdapterMovable::getVelocity() const
 {
-    using Type = VelocityProperty::type;
-
-    return m_obj->extractPropertyValue<Type>(m_obj->getProperty(VelocityProperty::key));
+    return VelocityProperty::cast(m_obj->getProperty(VelocityProperty::key).value());
 }
 
 }
