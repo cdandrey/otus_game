@@ -4,49 +4,57 @@
 #include <string>
 
 #include "../types/Property.h"
+#include "../types/PropertyError.h"
 
-namespace otg
-{
+namespace otg {
 
 class AbstractObject
 {
 public:
+	template<typename... Args>
+	explicit AbstractObject(Args &&... args);
 
-    template <typename... Args>
-    explicit AbstractObject(Args &&...args);
+	virtual ~AbstractObject() = 0;
 
-    virtual ~AbstractObject() = 0;
+	PropertyResultGet getProperty(PropertyKey key) const;
+	PropertyResultSet setProperty(PropertyKey key, const PropertyValue &value);
 
-    PropertyValueOpt getProperty(PropertyKey key) const;
-    void setProperty(PropertyKey key, const PropertyValue &value);
-
+    virtual std::string typeName() const = 0;
 private:
-    PropertyMap m_propertys;
+	PropertyMap m_propertys;
 
-    bool hasProperty(PropertyKey key) const;
+	bool hasProperty(PropertyKey key) const;
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;
 
-template <typename... Args>
-AbstractObject::AbstractObject(Args &&...args)
-    : m_propertys{std::forward<Args>(args)...} {}
+template<typename... Args>
+AbstractObject::AbstractObject(Args &&... args)
+    : m_propertys {std::forward<Args>(args)...}
+{
+}
 
 class ObjectTank : public AbstractObject
 {
 public:
-    ObjectTank();
+	ObjectTank();
+
+    std::string typeName() const override;
 };
 
 class ObjectBunker : public AbstractObject
 {
 public:
-    ObjectBunker();
+	ObjectBunker();
+
+    std::string typeName() const override;
 };
 
 class ObjectTree : public AbstractObject
 {
 public:
-    ObjectTree();
+	ObjectTree();
+
+    std::string typeName() const override;
 };
-}
+}  // namespace otg

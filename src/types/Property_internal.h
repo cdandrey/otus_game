@@ -20,12 +20,12 @@ struct Property
 		using type = Type;                                                                                                                                     \
 		using type_expected = tl::expected<type, PropertyError>;                                                                                               \
 		static constexpr PropertyKey key = Key;                                                                                                                \
-		static type cast(PropertyValue value)                                                                                                                  \
+		static type_expected cast(PropertyValue value)                                                                                                         \
 		{                                                                                                                                                      \
 			try {                                                                                                                                              \
 				return std::any_cast<type>(value);                                                                                                             \
-			} catch (std::bad_any_cast &) {                                                                                                                  \
-                return {};                                                                                                                                     \
+			} catch (std::bad_any_cast & e) {                                                                                                                  \
+				throw makePropertyUnexpected(PropertyErrorType::BadCast, e.what());                                                                            \
 			}                                                                                                                                                  \
 		}                                                                                                                                                      \
 	};                                                                                                                                                         \

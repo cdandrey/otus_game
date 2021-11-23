@@ -8,14 +8,12 @@ namespace otg {
 class CommandMovable : public AbstractCommand
 {
 public:
-    
-    explicit CommandMovable(const AbstractMovablePtr &movable);
+	explicit CommandMovable(const AbstractMovablePtr &movable);
 
-    void execute() override;
+	CommandResult execute() override;
 
 private:
-
-    AbstractMovablePtr m_movable;
+	AbstractMovablePtr m_movable;
 };
 
-}
+}  // namespace otg

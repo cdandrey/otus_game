@@ -5,23 +5,23 @@
 namespace otg {
 
 AdapterRotable::AdapterRotable(const AbstractObjectPtr &obj)
-    : m_obj{obj}
-{}
-
-
-DirectionProperty::type AdapterRotable::getDirection() const
+    : m_obj {obj}
 {
-    return DirectionProperty::cast(m_obj->getProperty(DirectionProperty::key).value());
 }
 
-void AdapterRotable::setDirection(const PositionProperty::type& value)
+DirectionProperty::type_expected AdapterRotable::getDirection() const
 {
-    m_obj->setProperty(DirectionProperty::key,value);
+	return m_obj->getProperty(DirectionProperty::key).and_then(DirectionProperty::cast);
 }
 
-VelocityRotateProperty::type AdapterRotable::getVelocityRotate() const
+PropertyResultSet AdapterRotable::setDirection(const PositionProperty::type &value)
 {
-    return VelocityProperty::cast(m_obj->getProperty(VelocityRotateProperty::key).value());
+	return m_obj->setProperty(DirectionProperty::key, value);
 }
 
+VelocityRotateProperty::type_expected AdapterRotable::getVelocityRotate() const
+{
+	return m_obj->getProperty(VelocityRotateProperty::key).and_then(VelocityProperty::cast);
 }
+
+}  // namespace otg

@@ -22,8 +22,8 @@ public:
 	PropertyErrorType errorType() const;
 
 private:
-	PropertyErrorType m_type;
-	std::string m_message;
+	PropertyErrorType m_type = PropertyErrorType::Unknown;
+	std::string m_message = "";
 };
 
 tl::unexpected<PropertyError> makePropertyUnexpected(const PropertyErrorType &type, const std::string &message = {});
