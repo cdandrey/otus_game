@@ -10,7 +10,9 @@ class CommandMovable : public AbstractCommand
 public:
 	explicit CommandMovable(const AbstractMovablePtr &movable);
 
-	CommandResult execute() override;
+	PropertyResultSet execute() override;
+
+	void set(const AbstractMovablePtr &movable);
 
 private:
 	AbstractMovablePtr m_movable;

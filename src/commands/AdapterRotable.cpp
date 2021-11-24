@@ -4,24 +4,41 @@
 
 namespace otg {
 
-AdapterRotable::AdapterRotable(const AbstractObjectPtr &obj)
-    : m_obj {obj}
+AbstractRotable::AbstractRotable(const AbstractObjectPtr &object)
+    : m_object {object}
+{
+}
+
+void AbstractRotable::setObject(const AbstractObjectPtr &object)
+{
+	if (m_object != object) {
+		m_object = object;
+	}
+}
+
+AbstractObjectPtr AbstractRotable::getObject() const
+{
+	return m_object;
+};
+
+AdapterRotable::AdapterRotable(const AbstractObjectPtr &object)
+    : AbstractRotable {object}
 {
 }
 
 DirectionProperty::type_expected AdapterRotable::getDirection() const
 {
-	return m_obj->getProperty(DirectionProperty::key).and_then(DirectionProperty::cast);
+	return getObject()->getProperty(DirectionProperty::key).and_then(DirectionProperty::cast);
 }
 
 PropertyResultSet AdapterRotable::setDirection(const PositionProperty::type &value)
 {
-	return m_obj->setProperty(DirectionProperty::key, value);
+	return getObject()->setProperty(DirectionProperty::key, value);
 }
 
 VelocityRotateProperty::type_expected AdapterRotable::getVelocityRotate() const
 {
-	return m_obj->getProperty(VelocityRotateProperty::key).and_then(VelocityProperty::cast);
+	return getObject()->getProperty(VelocityRotateProperty::key).and_then(VelocityProperty::cast);
 }
 
 }  // namespace otg

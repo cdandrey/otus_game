@@ -7,7 +7,7 @@ CommandRotable::CommandRotable(const AbstractRotablePtr &rotable)
 {
 }
 
-CommandResult CommandRotable::execute()
+PropertyResultSet CommandRotable::execute()
 {
 	const auto onSuccess = [](std::true_type) {
 		return std::true_type {};
@@ -17,15 +17,22 @@ CommandResult CommandRotable::execute()
 		return PropertyError {error.errorType(), error.errorMessage()};
 	};
 
-	const auto onGetVelocityRotate = [&](const PositionProperty::type &position) {
-		const auto onSetDirection = [&](const VelocityProperty::type &velocity) {
+	const auto getVelocityRotate = [&](const PositionProperty::type &position) {
+		const auto setDirection = [&](const VelocityProperty::type &velocity) {
 			return m_rotable->setDirection(position + velocity).map(onSuccess).map_error(onError);
 		};
 
-		return m_rotable->getVelocityRotate().and_then(onSetDirection).map_error(onError);
+		return m_rotable->getVelocityRotate().and_then(setDirection).map_error(onError);
 	};
 
-	return m_rotable->getDirection().and_then(onGetVelocityRotate).map_error(onError);
+	return m_rotable->getDirection().and_then(getVelocityRotate).map_error(onError);
+}
+
+void CommandRotable::set(const AbstractRotablePtr &rotable)
+{
+	if (m_rotable != rotable) {
+		m_rotable = rotable;
+	}
 }
 
 }  // namespace otg

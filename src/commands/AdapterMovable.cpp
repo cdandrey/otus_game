@@ -4,24 +4,41 @@
 
 namespace otg {
 
-AdapterMovable::AdapterMovable(const AbstractObjectPtr &obj)
-    : m_obj {obj}
+AbstractMovable::AbstractMovable(const AbstractObjectPtr &object)
+    : m_object {object}
+{
+}
+
+void AbstractMovable::setObject(const AbstractObjectPtr &object)
+{
+	if (m_object != object) {
+		m_object = object;
+	}
+}
+
+AbstractObjectPtr AbstractMovable::getObject() const
+{
+	return m_object;
+}
+
+AdapterMovable::AdapterMovable(const AbstractObjectPtr &object)
+    : AbstractMovable {object}
 {
 }
 
 PositionProperty::type_expected AdapterMovable::getPosition() const
 {
-	return m_obj->getProperty(PositionProperty::key).and_then(PositionProperty::cast);
+	return getObject()->getProperty(PositionProperty::key).and_then(PositionProperty::cast);
 }
 
 PropertyResultSet AdapterMovable::setPosition(const PositionProperty::type &value)
 {
-	return m_obj->setProperty(PositionProperty::key, value);
+	return getObject()->setProperty(PositionProperty::key, value);
 }
 
 VelocityProperty::type_expected AdapterMovable::getVelocity() const
 {
-	return m_obj->getProperty(VelocityProperty::key).and_then(VelocityProperty::cast);
+	return getObject()->getProperty(VelocityProperty::key).and_then(VelocityProperty::cast);
 }
 
 }  // namespace otg

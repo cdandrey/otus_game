@@ -19,7 +19,8 @@ public:
 	PropertyResultGet getProperty(PropertyKey key) const;
 	PropertyResultSet setProperty(PropertyKey key, const PropertyValue &value);
 
-    virtual std::string typeName() const = 0;
+	virtual std::string typeName() const = 0;
+
 private:
 	PropertyMap m_propertys;
 
@@ -39,7 +40,7 @@ class ObjectTank : public AbstractObject
 public:
 	ObjectTank();
 
-    std::string typeName() const override;
+	std::string typeName() const override;
 };
 
 class ObjectBunker : public AbstractObject
@@ -47,7 +48,7 @@ class ObjectBunker : public AbstractObject
 public:
 	ObjectBunker();
 
-    std::string typeName() const override;
+	std::string typeName() const override;
 };
 
 class ObjectTree : public AbstractObject
@@ -55,6 +56,6 @@ class ObjectTree : public AbstractObject
 public:
 	ObjectTree();
 
-    std::string typeName() const override;
+	std::string typeName() const override;
 };
 }  // namespace otg
