@@ -9,23 +9,19 @@ CommandMovable::CommandMovable(const AbstractMovablePtr &movable)
 
 PropertyResultSet CommandMovable::execute()
 {
-	const auto onSuccess = [](std::true_type) {
-		return std::true_type {};
+	const auto onSuccess = [](std::true_type) -> std::true_type {
+		return {};
 	};
 
-	const auto onError = [](const PropertyError &error) {
-		return PropertyError {error.errorType(), error.errorMessage()};
-	};
-
-	const auto getVelocity = [&](const PositionProperty::type &position) {
-		const auto setPosition = [&](const VelocityProperty::type &velocity) {
-			return m_movable->setPosition(position + velocity).map(onSuccess).map_error(onError);
+	const auto getVelocity = [this, &onSuccess](const PositionProperty::type &position) {
+		const auto setPosition = [this, &onSuccess, &position](const VelocityProperty::type &velocity) {
+			return m_movable->setPosition(position + velocity).map(onSuccess);
 		};
 
-		return m_movable->getVelocity().and_then(setPosition).map_error(onError);
+		return m_movable->getVelocity().and_then(setPosition);
 	};
 
-	return m_movable->getPosition().and_then(getVelocity).map_error(onError);
+	return m_movable->getPosition().and_then(getVelocity);
 }
 
 void CommandMovable::set(const AbstractMovablePtr &movable)

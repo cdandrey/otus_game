@@ -24,7 +24,7 @@ public:
 private:
 	PropertyMap m_propertys;
 
-	bool hasProperty(PropertyKey key) const;
+	PropertyResultSet hasProperty(PropertyKey key) const;
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;

@@ -8,28 +8,28 @@ AbstractObject::~AbstractObject()
 
 PropertyResultGet AbstractObject::getProperty(PropertyKey key) const
 {
-	if (hasProperty(key)) {
+	return hasProperty(key).map([this, key](std::true_type) -> PropertyValue {
 		return m_propertys.at(key);
-	}
-
-	std::string errorMsg {"Object " + typeName() + " does not have the property " + std::string {key}};
-	return makePropertyUnexpected(PropertyErrorType::Missing, errorMsg);
+	});
 }
 
 PropertyResultSet AbstractObject::setProperty(PropertyKey key, const PropertyValue &value)
 {
-	if (hasProperty(key)) {
+	const auto onSuccess = [this, key, value](std::true_type) -> std::true_type {
 		m_propertys[key] = value;
 		return {};
+	};
+	return hasProperty(key).map(onSuccess);
+}
+
+PropertyResultSet AbstractObject::hasProperty(PropertyKey key) const
+{
+	if (m_propertys.find(key) != m_propertys.end()) {
+		return std::true_type {};
 	}
 
 	std::string errorMsg {"Object " + typeName() + " does not have the property " + std::string {key}};
 	return makePropertyUnexpected(PropertyErrorType::Missing, errorMsg);
-}
-
-bool AbstractObject::hasProperty(PropertyKey key) const
-{
-	return m_propertys.find(key) != m_propertys.end();
 }
 
 ObjectTank::ObjectTank()
