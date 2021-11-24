@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include "PropertyError.h"
-
 namespace otg {
 
 using PropertyKey = std::string_view;
@@ -25,7 +23,9 @@ struct Property
 			try {                                                                                                                                              \
 				return std::any_cast<type>(value);                                                                                                             \
 			} catch (std::bad_any_cast & e) {                                                                                                                  \
-				throw makePropertyUnexpected(PropertyErrorType::BadCast, e.what());                                                                            \
+				return makePropertyUnexpected(PropertyErrorType::BadCast, e.what());                                                                           \
+			} catch (...) {                                                                                                                                    \
+				return makePropertyUnexpected(PropertyErrorType::Unknown, {"Unknown error of type cast of property " + std::string {Key}});                    \
 			}                                                                                                                                                  \
 		}                                                                                                                                                      \
 	};                                                                                                                                                         \

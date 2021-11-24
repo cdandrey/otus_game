@@ -1,15 +1,14 @@
 #pragma once
 
 #include <any>
-#include <optional>
 #include <unordered_map>
 
 #include "Property_internal.h"
+#include "PropertyError.h"
 #include "Vector.h"
 
 namespace otg {
 
-using PropertyValueOpt = std::optional<PropertyValue>;
 using PropertyMap = std::unordered_map<PropertyKey, PropertyValue>;
 using PropertyResultGet = tl::expected<PropertyValue, PropertyError>;
 using PropertyResultSet = tl::expected<std::true_type, PropertyError>;
