@@ -16,9 +16,13 @@ void AbstractRotable::setObject(const AbstractObjectPtr &object)
 	}
 }
 
-AbstractObjectPtr AbstractRotable::getObject() const
+ObjectResultGet AbstractRotable::getObject() const
 {
-	return m_object;
+	if (m_object != nullptr) {
+		return m_object;
+	}
+
+	return makePropertyUnexpected(PropertyErrorType::NotInitialized, std::string {"Object of rotable adapter is not initialized"});
 };
 
 AdapterRotable::AdapterRotable(const AbstractObjectPtr &object)
@@ -28,17 +32,29 @@ AdapterRotable::AdapterRotable(const AbstractObjectPtr &object)
 
 DirectionProperty::type_expected AdapterRotable::getDirection() const
 {
-	return getObject()->getProperty(DirectionProperty::key).and_then(DirectionProperty::cast);
+	const auto onGetDirection = [](const AbstractObjectPtr &object) -> PropertyResultGet {
+		return object->getProperty(DirectionProperty::key);
+	};
+
+	return getObject().and_then(onGetDirection).and_then(DirectionProperty::cast);
 }
 
 PropertyResultSet AdapterRotable::setDirection(const PositionProperty::type &value)
 {
-	return getObject()->setProperty(DirectionProperty::key, value);
+	const auto onSetDirection = [&value](const AbstractObjectPtr &object) -> PropertyResultSet {
+		return object->setProperty(DirectionProperty::key, value);
+	};
+
+	return getObject().and_then(onSetDirection);
 }
 
 VelocityRotateProperty::type_expected AdapterRotable::getVelocityRotate() const
 {
-	return getObject()->getProperty(VelocityRotateProperty::key).and_then(VelocityProperty::cast);
+	const auto onGetVelocityRotate = [](const AbstractObjectPtr &object) -> PropertyResultGet {
+		return object->getProperty(VelocityRotateProperty::key);
+	};
+
+	return getObject().and_then(onGetVelocityRotate).and_then(DirectionProperty::cast);
 }
 
 }  // namespace otg

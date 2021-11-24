@@ -28,6 +28,7 @@ private:
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;
+using ObjectResultGet = tl::expected<AbstractObjectPtr, PropertyError>;
 
 template<typename... Args>
 AbstractObject::AbstractObject(Args &&... args)

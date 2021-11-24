@@ -9,26 +9,35 @@ CommandMovable::CommandMovable(const AbstractMovablePtr &movable)
 
 PropertyResultSet CommandMovable::execute()
 {
-	const auto onSuccess = [](std::true_type) -> std::true_type {
-		return {};
-	};
+	const auto onGetPosition = [](const AbstractMovablePtr &movable) -> PropertyResultSet {
+		const auto onGetVelocity = [&movable](const PositionProperty::type &position) -> PropertyResultSet {
+			const auto onSetPosition = [&movable, &position](const VelocityProperty::type &velocity) -> PropertyResultSet {
+				return movable->setPosition(position + velocity);
+			};
 
-	const auto getVelocity = [this, &onSuccess](const PositionProperty::type &position) {
-		const auto setPosition = [this, &onSuccess, &position](const VelocityProperty::type &velocity) {
-			return m_movable->setPosition(position + velocity).map(onSuccess);
+			return movable->getVelocity().and_then(onSetPosition);
 		};
 
-		return m_movable->getVelocity().and_then(setPosition);
+		return movable->getPosition().and_then(onGetVelocity);
 	};
 
-	return m_movable->getPosition().and_then(getVelocity);
+	return getAdapter().and_then(onGetPosition);
 }
 
-void CommandMovable::set(const AbstractMovablePtr &movable)
+void CommandMovable::setAdapter(const AbstractMovablePtr &movable)
 {
 	if (m_movable != movable) {
 		m_movable = movable;
 	}
+}
+
+AdapterMovableResultGet CommandMovable::getAdapter() const
+{
+	if (m_movable != nullptr) {
+		return m_movable;
+	}
+
+	return makePropertyUnexpected(PropertyErrorType::NotInitialized, std::string {"Adapter of movable command is not initialized"});
 }
 
 }  // namespace otg

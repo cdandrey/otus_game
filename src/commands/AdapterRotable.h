@@ -19,13 +19,14 @@ public:
 	void setObject(const AbstractObjectPtr &object);
 
 protected:
-	AbstractObjectPtr getObject() const;
+	ObjectResultGet getObject() const;
 
 private:
 	AbstractObjectPtr m_object;
 };
 
 using AbstractRotablePtr = std::shared_ptr<AbstractRotable>;
+using AdapapterRotableResultGet = tl::expected<AbstractRotablePtr, PropertyError>;
 
 class AdapterRotable : public AbstractRotable
 {

@@ -12,7 +12,10 @@ public:
 
 	PropertyResultSet execute() override;
 
-	void set(const AbstractMovablePtr &movable);
+	void setAdapter(const AbstractMovablePtr &movable);
+
+protected:
+	AdapterMovableResultGet getAdapter() const;
 
 private:
 	AbstractMovablePtr m_movable;

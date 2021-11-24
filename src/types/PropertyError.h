@@ -8,6 +8,7 @@ enum class PropertyErrorType
 {
 	Missing,
 	BadCast,
+	NotInitialized,
 	Unknown
 };
 

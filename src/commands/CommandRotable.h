@@ -12,7 +12,10 @@ public:
 
 	PropertyResultSet execute() override;
 
-	void set(const AbstractRotablePtr &rotable);
+	void setAdapetr(const AbstractRotablePtr &rotable);
+
+protected:
+	AdapapterRotableResultGet getAdapter() const;
 
 private:
 	AbstractRotablePtr m_rotable;

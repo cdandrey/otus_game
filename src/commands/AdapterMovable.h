@@ -19,13 +19,14 @@ public:
 	void setObject(const AbstractObjectPtr &object);
 
 protected:
-	AbstractObjectPtr getObject() const;
+	ObjectResultGet getObject() const;
 
 private:
 	AbstractObjectPtr m_object;
 };
 
 using AbstractMovablePtr = std::shared_ptr<AbstractMovable>;
+using AdapterMovableResultGet = tl::expected<AbstractMovablePtr, PropertyError>;
 
 class AdapterMovable : public AbstractMovable
 {

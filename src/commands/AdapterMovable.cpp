@@ -16,9 +16,13 @@ void AbstractMovable::setObject(const AbstractObjectPtr &object)
 	}
 }
 
-AbstractObjectPtr AbstractMovable::getObject() const
+ObjectResultGet AbstractMovable::getObject() const
 {
-	return m_object;
+	if (m_object != nullptr) {
+		return m_object;
+	}
+
+	return makePropertyUnexpected(PropertyErrorType::NotInitialized, std::string {"Object of movable adapter is not initialized"});
 }
 
 AdapterMovable::AdapterMovable(const AbstractObjectPtr &object)
@@ -28,17 +32,29 @@ AdapterMovable::AdapterMovable(const AbstractObjectPtr &object)
 
 PositionProperty::type_expected AdapterMovable::getPosition() const
 {
-	return getObject()->getProperty(PositionProperty::key).and_then(PositionProperty::cast);
+	const auto onGetPosition = [](const AbstractObjectPtr &object) -> PropertyResultGet {
+		return object->getProperty(PositionProperty::key);
+	};
+
+	return getObject().and_then(onGetPosition).and_then(PositionProperty::cast);
 }
 
 PropertyResultSet AdapterMovable::setPosition(const PositionProperty::type &value)
 {
-	return getObject()->setProperty(PositionProperty::key, value);
+	const auto onSetPosition = [&value](const AbstractObjectPtr &object) -> PropertyResultSet {
+		return object->setProperty(PositionProperty::key, value);
+	};
+
+	return getObject().and_then(onSetPosition);
 }
 
 VelocityProperty::type_expected AdapterMovable::getVelocity() const
 {
-	return getObject()->getProperty(VelocityProperty::key).and_then(VelocityProperty::cast);
+	const auto onGetVelocity = [](const AbstractObjectPtr &object) -> PropertyResultGet {
+		return object->getProperty(VelocityProperty::key);
+	};
+
+	return getObject().and_then(onGetVelocity).and_then(VelocityProperty::cast);
 }
 
 }  // namespace otg
