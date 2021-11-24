@@ -16,16 +16,16 @@ struct Property
 	struct Property<Key>                                                                                                                                       \
 	{                                                                                                                                                          \
 		using type = Type;                                                                                                                                     \
-		using type_expected = tl::expected<type, PropertyError>;                                                                                               \
+		using type_expected = tl::expected<type, ExceptionError>;                                                                                              \
 		static constexpr PropertyKey key = Key;                                                                                                                \
 		static type_expected cast(PropertyValue value)                                                                                                         \
 		{                                                                                                                                                      \
 			try {                                                                                                                                              \
 				return std::any_cast<type>(value);                                                                                                             \
 			} catch (std::bad_any_cast & e) {                                                                                                                  \
-				return makePropertyUnexpected(PropertyErrorType::BadCast, e.what());                                                                           \
+				return makeUnexpected(ExceptionErrorType::BadCast, e.what());                                                                                  \
 			} catch (...) {                                                                                                                                    \
-				return makePropertyUnexpected(PropertyErrorType::Unknown, {"Unknown error of type cast of property " + std::string {Key}});                    \
+				return makeUnexpected(ExceptionErrorType::Unknown, {"Unknown error of type cast of property " + std::string {Key}});                           \
 			}                                                                                                                                                  \
 		}                                                                                                                                                      \
 	};                                                                                                                                                         \

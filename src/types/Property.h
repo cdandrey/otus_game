@@ -3,15 +3,15 @@
 #include <any>
 #include <unordered_map>
 
+#include "ExceptionError.h"
 #include "Property_internal.h"
-#include "PropertyError.h"
 #include "Vector.h"
 
 namespace otg {
 
 using PropertyMap = std::unordered_map<PropertyKey, PropertyValue>;
-using PropertyResultGet = tl::expected<PropertyValue, PropertyError>;
-using PropertyResultSet = tl::expected<std::true_type, PropertyError>;
+using PropertyResultGet = tl::expected<PropertyValue, ExceptionError>;
+using PropertyResultSet = tl::expected<std::true_type, ExceptionError>;
 
 constexpr PropertyKey PropertyKeyPosition = "Position";
 constexpr PropertyKey PropertyKeyVelocity = "Velocity";

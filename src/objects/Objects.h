@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 
+#include "../types/ExceptionError.h"
 #include "../types/Property.h"
-#include "../types/PropertyError.h"
 
 namespace otg {
 
@@ -28,7 +28,7 @@ private:
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;
-using ObjectResultGet = tl::expected<AbstractObjectPtr, PropertyError>;
+using ObjectResultGet = tl::expected<AbstractObjectPtr, ExceptionError>;
 
 template<typename... Args>
 AbstractObject::AbstractObject(Args &&... args)

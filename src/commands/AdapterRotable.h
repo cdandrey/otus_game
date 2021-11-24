@@ -26,7 +26,7 @@ private:
 };
 
 using AbstractRotablePtr = std::shared_ptr<AbstractRotable>;
-using AdapapterRotableResultGet = tl::expected<AbstractRotablePtr, PropertyError>;
+using AdapapterRotableResultGet = tl::expected<AbstractRotablePtr, ExceptionError>;
 
 class AdapterRotable : public AbstractRotable
 {

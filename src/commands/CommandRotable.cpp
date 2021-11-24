@@ -36,7 +36,7 @@ AdapapterRotableResultGet CommandRotable::getAdapter() const
 		return m_rotable;
 	}
 
-	return makePropertyUnexpected(PropertyErrorType::NotInitialized, std::string {"Adapter of rotable command is not initialized"});
+	return makeUnexpected(ExceptionErrorType::NotInitialized, std::string {"Adapter of rotable command is not initialized"});
 }
 
 }  // namespace otg

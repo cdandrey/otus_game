@@ -26,12 +26,12 @@ set(object_sources
 set(types_headers
     types/Property.h
     types/Property_internal.h
-    types/PropertyError.h
+    types/ExceptionError.h
     types/Vector.h
 )
 
 set(types_sources
-    types/PropertyError.cpp
+    types/ExceptionError.cpp
     types/Vector.cpp
 )
 

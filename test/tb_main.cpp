@@ -6,7 +6,7 @@
 #include "../src/commands/CommandRotable.cpp"
 #include "../src/objects/Objects.cpp"
 #include "../src/types/Vector.cpp"
-#include "../src/types/PropertyError.cpp"
+#include "../src/types/ExceptionError.cpp"
 
 namespace detail {
 

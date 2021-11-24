@@ -26,7 +26,7 @@ private:
 };
 
 using AbstractMovablePtr = std::shared_ptr<AbstractMovable>;
-using AdapterMovableResultGet = tl::expected<AbstractMovablePtr, PropertyError>;
+using AdapterMovableResultGet = tl::expected<AbstractMovablePtr, ExceptionError>;
 
 class AdapterMovable : public AbstractMovable
 {

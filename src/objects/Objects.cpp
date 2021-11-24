@@ -29,7 +29,7 @@ PropertyResultSet AbstractObject::hasProperty(PropertyKey key) const
 	}
 
 	std::string errorMsg {"Object " + typeName() + " does not have the property " + std::string {key}};
-	return makePropertyUnexpected(PropertyErrorType::Missing, errorMsg);
+	return makeUnexpected(ExceptionErrorType::Missing, errorMsg);
 }
 
 ObjectTank::ObjectTank()

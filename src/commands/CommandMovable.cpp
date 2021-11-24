@@ -37,7 +37,7 @@ AdapterMovableResultGet CommandMovable::getAdapter() const
 		return m_movable;
 	}
 
-	return makePropertyUnexpected(PropertyErrorType::NotInitialized, std::string {"Adapter of movable command is not initialized"});
+	return makeUnexpected(ExceptionErrorType::NotInitialized, std::string {"Adapter of movable command is not initialized"});
 }
 
 }  // namespace otg

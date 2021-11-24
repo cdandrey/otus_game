@@ -22,7 +22,7 @@ ObjectResultGet AbstractMovable::getObject() const
 		return m_object;
 	}
 
-	return makePropertyUnexpected(PropertyErrorType::NotInitialized, std::string {"Object of movable adapter is not initialized"});
+	return makeUnexpected(ExceptionErrorType::NotInitialized, std::string {"Object of movable adapter is not initialized"});
 }
 
 AdapterMovable::AdapterMovable(const AbstractObjectPtr &object)
