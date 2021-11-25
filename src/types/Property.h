@@ -9,10 +9,6 @@
 
 namespace otg {
 
-using PropertyMap = std::unordered_map<PropertyKey, PropertyValue>;
-using PropertyResultGet = tl::expected<PropertyValue, ExceptionError>;
-using PropertyResultSet = tl::expected<std::true_type, ExceptionError>;
-
 constexpr PropertyKey PropertyKeyPosition = "Position";
 constexpr PropertyKey PropertyKeyVelocity = "Velocity";
 constexpr PropertyKey PropertyKeyHealth = "Health";

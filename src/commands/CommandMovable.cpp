@@ -7,20 +7,17 @@ CommandMovable::CommandMovable(const AbstractMovablePtr &movable)
 {
 }
 
-PropertyResultSet CommandMovable::execute()
+ResultSet CommandMovable::execute()
 {
-	const auto onGetPosition = [](const AbstractMovablePtr &movable) -> PropertyResultSet {
-		const auto onGetVelocity = [&movable](const PositionProperty::type &position) -> PropertyResultSet {
-			const auto onSetPosition = [&movable, &position](const VelocityProperty::type &velocity) -> PropertyResultSet {
+	const auto onGetPosition = [](const AbstractMovablePtr &movable) -> ResultSet {
+		const auto onGetVelocity = [&movable](const PositionProperty::type &position) -> ResultSet {
+			const auto onSetPosition = [&movable, &position](const VelocityProperty::type &velocity) -> ResultSet {
 				return movable->setPosition(position + velocity);
 			};
-
 			return movable->getVelocity().and_then(onSetPosition);
 		};
-
 		return movable->getPosition().and_then(onGetVelocity);
 	};
-
 	return getAdapter().and_then(onGetPosition);
 }
 
@@ -31,7 +28,7 @@ void CommandMovable::setAdapter(const AbstractMovablePtr &movable)
 	}
 }
 
-AdapterMovableResultGet CommandMovable::getAdapter() const
+ResultGet<AbstractMovablePtr> CommandMovable::getAdapter() const
 {
 	if (m_movable != nullptr) {
 		return m_movable;

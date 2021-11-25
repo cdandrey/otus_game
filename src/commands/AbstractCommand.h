@@ -10,7 +10,7 @@ class AbstractCommand
 public:
 	virtual ~AbstractCommand() = default;
 
-	virtual PropertyResultSet execute() = 0;
+	virtual ResultSet execute() = 0;
 };
 
 using AbstractCommandPtr = std::shared_ptr<AbstractCommand>;

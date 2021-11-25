@@ -16,7 +16,7 @@ void AbstractMovable::setObject(const AbstractObjectPtr &object)
 	}
 }
 
-ObjectResultGet AbstractMovable::getObject() const
+ResultGet<AbstractObjectPtr> AbstractMovable::getObject() const
 {
 	if (m_object != nullptr) {
 		return m_object;
@@ -30,27 +30,27 @@ AdapterMovable::AdapterMovable(const AbstractObjectPtr &object)
 {
 }
 
-PositionProperty::type_expected AdapterMovable::getPosition() const
+ResultGet<PositionProperty::type> AdapterMovable::getPosition() const
 {
-	const auto onGetPosition = [](const AbstractObjectPtr &object) -> PropertyResultGet {
+	const auto onGetPosition = [](const AbstractObjectPtr &object) -> ResultGet<PropertyValue> {
 		return object->getProperty(PositionProperty::key);
 	};
 
 	return getObject().and_then(onGetPosition).and_then(PositionProperty::cast);
 }
 
-PropertyResultSet AdapterMovable::setPosition(const PositionProperty::type &value)
+ResultSet AdapterMovable::setPosition(const PositionProperty::type &value)
 {
-	const auto onSetPosition = [&value](const AbstractObjectPtr &object) -> PropertyResultSet {
+	const auto onSetPosition = [&value](const AbstractObjectPtr &object) -> ResultSet {
 		return object->setProperty(PositionProperty::key, value);
 	};
 
 	return getObject().and_then(onSetPosition);
 }
 
-VelocityProperty::type_expected AdapterMovable::getVelocity() const
+ResultGet<VelocityProperty::type> AdapterMovable::getVelocity() const
 {
-	const auto onGetVelocity = [](const AbstractObjectPtr &object) -> PropertyResultGet {
+	const auto onGetVelocity = [](const AbstractObjectPtr &object) -> ResultGet<PropertyValue> {
 		return object->getProperty(VelocityProperty::key);
 	};
 

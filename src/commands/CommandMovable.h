@@ -10,12 +10,12 @@ class CommandMovable : public AbstractCommand
 public:
 	explicit CommandMovable(const AbstractMovablePtr &movable);
 
-	PropertyResultSet execute() override;
+	ResultSet execute() override;
 
 	void setAdapter(const AbstractMovablePtr &movable);
 
 protected:
-	AdapterMovableResultGet getAdapter() const;
+	ResultGet<AbstractMovablePtr> getAdapter() const;
 
 private:
 	AbstractMovablePtr m_movable;

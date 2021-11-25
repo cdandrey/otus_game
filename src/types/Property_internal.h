@@ -5,6 +5,7 @@ namespace otg {
 
 using PropertyKey = std::string_view;
 using PropertyValue = std::any;
+using PropertyMap = std::unordered_map<PropertyKey, PropertyValue>;
 
 template<const PropertyKey &key>
 struct Property
@@ -16,9 +17,8 @@ struct Property
 	struct Property<Key>                                                                                                                                       \
 	{                                                                                                                                                          \
 		using type = Type;                                                                                                                                     \
-		using type_expected = tl::expected<type, ExceptionError>;                                                                                              \
 		static constexpr PropertyKey key = Key;                                                                                                                \
-		static type_expected cast(PropertyValue value)                                                                                                         \
+		static ResultGet<type> cast(PropertyValue value)                                                                                                       \
 		{                                                                                                                                                      \
 			try {                                                                                                                                              \
 				return std::any_cast<type>(value);                                                                                                             \

@@ -12,30 +12,29 @@ public:
 	explicit AbstractRotable(const AbstractObjectPtr &object);
 	virtual ~AbstractRotable() = default;
 
-	virtual DirectionProperty::type_expected getDirection() const = 0;
-	virtual PropertyResultSet setDirection(const DirectionProperty::type &value) = 0;
-	virtual VelocityRotateProperty::type_expected getVelocityRotate() const = 0;
+	virtual ResultGet<DirectionProperty::type> getDirection() const = 0;
+	virtual ResultSet setDirection(const DirectionProperty::type &value) = 0;
+	virtual ResultGet<VelocityRotateProperty::type> getVelocityRotate() const = 0;
 
 	void setObject(const AbstractObjectPtr &object);
 
 protected:
-	ObjectResultGet getObject() const;
+	ResultGet<AbstractObjectPtr> getObject() const;
 
 private:
 	AbstractObjectPtr m_object;
 };
 
 using AbstractRotablePtr = std::shared_ptr<AbstractRotable>;
-using AdapapterRotableResultGet = tl::expected<AbstractRotablePtr, ExceptionError>;
 
 class AdapterRotable : public AbstractRotable
 {
 public:
 	explicit AdapterRotable(const AbstractObjectPtr &object);
 
-	DirectionProperty::type_expected getDirection() const override;
-	PropertyResultSet setDirection(const DirectionProperty::type &value) override;
-	VelocityRotateProperty::type_expected getVelocityRotate() const override;
+	ResultGet<DirectionProperty::type> getDirection() const override;
+	ResultSet setDirection(const DirectionProperty::type &value) override;
+	ResultGet<VelocityRotateProperty::type> getVelocityRotate() const override;
 };
 
 }  // namespace otg

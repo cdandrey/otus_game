@@ -6,14 +6,14 @@ AbstractObject::~AbstractObject()
 {
 }
 
-PropertyResultGet AbstractObject::getProperty(PropertyKey key) const
+ResultGet<PropertyValue> AbstractObject::getProperty(PropertyKey key) const
 {
 	return hasProperty(key).map([this, key](std::true_type) -> PropertyValue {
 		return m_propertys.at(key);
 	});
 }
 
-PropertyResultSet AbstractObject::setProperty(PropertyKey key, const PropertyValue &value)
+ResultSet AbstractObject::setProperty(PropertyKey key, const PropertyValue &value)
 {
 	const auto onSuccess = [this, key, value](std::true_type) -> std::true_type {
 		m_propertys[key] = value;
@@ -22,7 +22,7 @@ PropertyResultSet AbstractObject::setProperty(PropertyKey key, const PropertyVal
 	return hasProperty(key).map(onSuccess);
 }
 
-PropertyResultSet AbstractObject::hasProperty(PropertyKey key) const
+ResultSet AbstractObject::hasProperty(PropertyKey key) const
 {
 	if (m_propertys.find(key) != m_propertys.end()) {
 		return std::true_type {};

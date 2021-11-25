@@ -16,19 +16,18 @@ public:
 
 	virtual ~AbstractObject() = 0;
 
-	PropertyResultGet getProperty(PropertyKey key) const;
-	PropertyResultSet setProperty(PropertyKey key, const PropertyValue &value);
+	ResultGet<PropertyValue> getProperty(PropertyKey key) const;
+	ResultSet setProperty(PropertyKey key, const PropertyValue &value);
 
 	virtual std::string typeName() const = 0;
 
 private:
 	PropertyMap m_propertys;
 
-	PropertyResultSet hasProperty(PropertyKey key) const;
+	ResultSet hasProperty(PropertyKey key) const;
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;
-using ObjectResultGet = tl::expected<AbstractObjectPtr, ExceptionError>;
 
 template<typename... Args>
 AbstractObject::AbstractObject(Args &&... args)
