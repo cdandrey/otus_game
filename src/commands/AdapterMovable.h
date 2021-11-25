@@ -1,33 +1,23 @@
 #pragma once
 
-#include <memory>
-
-#include "../objects/Objects.h"
+#include "AbstractAdapter.h"
 
 namespace otg {
 
-class AbstractMovable
+class AbstractAdapterMovable : public AbstractAdapter
 {
 public:
-	explicit AbstractMovable(const AbstractObjectPtr &object);
-	virtual ~AbstractMovable() = default;
+	explicit AbstractAdapterMovable(const AbstractObjectPtr &object);
+	virtual ~AbstractAdapterMovable() = default;
 
 	virtual ResultGet<PositionProperty::type> getPosition() const = 0;
 	virtual ResultSet setPosition(const PositionProperty::type &value) = 0;
 	virtual ResultGet<VelocityProperty::type> getVelocity() const = 0;
-
-	void setObject(const AbstractObjectPtr &object);
-
-protected:
-	ResultGet<AbstractObjectPtr> getObject() const;
-
-private:
-	AbstractObjectPtr m_object;
 };
 
-using AbstractMovablePtr = std::shared_ptr<AbstractMovable>;
+using AbstractAdapterMovablePtr = std::shared_ptr<AbstractAdapterMovable>;
 
-class AdapterMovable : public AbstractMovable
+class AdapterMovable : public AbstractAdapterMovable
 {
 public:
 	explicit AdapterMovable(const AbstractObjectPtr &object);

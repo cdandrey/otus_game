@@ -4,29 +4,13 @@
 
 namespace otg {
 
-AbstractRotable::AbstractRotable(const AbstractObjectPtr &object)
-    : m_object {object}
+AbstractAdapterRotable::AbstractAdapterRotable(const AbstractObjectPtr &object)
+    : AbstractAdapter {object}
 {
 }
-
-void AbstractRotable::setObject(const AbstractObjectPtr &object)
-{
-	if (m_object != object) {
-		m_object = object;
-	}
-}
-
-ResultGet<AbstractObjectPtr> AbstractRotable::getObject() const
-{
-	if (m_object != nullptr) {
-		return m_object;
-	}
-
-	return makeUnexpected(ExceptionErrorType::NotInitialized, std::string {"Object of rotable adapter is not initialized"});
-};
 
 AdapterRotable::AdapterRotable(const AbstractObjectPtr &object)
-    : AbstractRotable {object}
+    : AbstractAdapterRotable {object}
 {
 }
 

@@ -2,39 +2,20 @@
 
 namespace otg {
 
-CommandMovable::CommandMovable(const AbstractMovablePtr &movable)
+CommandMovable::CommandMovable(const AbstractAdapterMovablePtr &movable)
     : m_movable {movable}
 {
 }
 
 ResultSet CommandMovable::execute()
 {
-	const auto onGetPosition = [](const AbstractMovablePtr &movable) -> ResultSet {
-		const auto onGetVelocity = [&movable](const PositionProperty::type &position) -> ResultSet {
-			const auto onSetPosition = [&movable, &position](const VelocityProperty::type &velocity) -> ResultSet {
-				return movable->setPosition(position + velocity);
-			};
-			return movable->getVelocity().and_then(onSetPosition);
+	const auto onGetVelocity = [this](const PositionProperty::type &position) -> ResultSet {
+		const auto onSetPosition = [this, &position](const VelocityProperty::type &velocity) -> ResultSet {
+			return m_movable->setPosition(position + velocity);
 		};
-		return movable->getPosition().and_then(onGetVelocity);
+		return m_movable->getVelocity().and_then(onSetPosition);
 	};
-	return getAdapter().and_then(onGetPosition);
-}
-
-void CommandMovable::setAdapter(const AbstractMovablePtr &movable)
-{
-	if (m_movable != movable) {
-		m_movable = movable;
-	}
-}
-
-ResultGet<AbstractMovablePtr> CommandMovable::getAdapter() const
-{
-	if (m_movable != nullptr) {
-		return m_movable;
-	}
-
-	return makeUnexpected(ExceptionErrorType::NotInitialized, std::string {"Adapter of movable command is not initialized"});
+	return m_movable->getPosition().and_then(onGetVelocity);
 }
 
 }  // namespace otg

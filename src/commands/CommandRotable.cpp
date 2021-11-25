@@ -2,40 +2,20 @@
 
 namespace otg {
 
-CommandRotable::CommandRotable(const AbstractRotablePtr &rotable)
+CommandRotable::CommandRotable(const AbstractAdapterRotablePtr &rotable)
     : m_rotable {rotable}
 {
 }
 
 ResultSet CommandRotable::execute()
 {
-	const auto onGetDirection = [](const AbstractRotablePtr &rotable) -> ResultSet {
-		const auto onGetVelocityRotate = [&rotable](const DirectionProperty::type &position) -> ResultSet {
-			const auto onSetDirection = [&rotable, &position](const VelocityRotateProperty::type &velocity) -> ResultSet {
-				return rotable->setDirection(position + velocity);
-			};
-			return rotable->getVelocityRotate().and_then(onSetDirection);
+	const auto onGetVelocityRotate = [this](const DirectionProperty::type &position) -> ResultSet {
+		const auto onSetDirection = [this, &position](const VelocityRotateProperty::type &velocity) -> ResultSet {
+			return m_rotable->setDirection(position + velocity);
 		};
-		return rotable->getDirection().and_then(onGetVelocityRotate);
+		return m_rotable->getVelocityRotate().and_then(onSetDirection);
 	};
-
-	return getAdapter().and_then(onGetDirection);
-}
-
-void CommandRotable::setAdapetr(const AbstractRotablePtr &rotable)
-{
-	if (m_rotable != rotable) {
-		m_rotable = rotable;
-	}
-}
-
-ResultGet<AbstractRotablePtr> CommandRotable::getAdapter() const
-{
-	if (m_rotable != nullptr) {
-		return m_rotable;
-	}
-
-	return makeUnexpected(ExceptionErrorType::NotInitialized, std::string {"Adapter of rotable command is not initialized"});
+	return m_rotable->getDirection().and_then(onGetVelocityRotate);
 }
 
 }  // namespace otg

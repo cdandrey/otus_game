@@ -28,7 +28,7 @@ int main(int, char **)
 
 	std::cout << "Move tank..." << std::endl;
 
-	AbstractMovablePtr adapterMove = std::make_shared<AdapterMovable>(tank);
+	AbstractAdapterMovablePtr adapterMove = std::make_shared<AdapterMovable>(tank);
 	AbstractCommandPtr commandMove = std::make_shared<CommandMovable>(adapterMove);
 	commandMove->execute();
 

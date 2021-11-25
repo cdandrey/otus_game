@@ -1,33 +1,23 @@
 #pragma once
 
-#include <memory>
-
-#include "../objects/Objects.h"
+#include "AbstractAdapter.h"
 
 namespace otg {
 
-class AbstractRotable
+class AbstractAdapterRotable : public AbstractAdapter
 {
 public:
-	explicit AbstractRotable(const AbstractObjectPtr &object);
-	virtual ~AbstractRotable() = default;
+	explicit AbstractAdapterRotable(const AbstractObjectPtr &object);
+	virtual ~AbstractAdapterRotable() = default;
 
 	virtual ResultGet<DirectionProperty::type> getDirection() const = 0;
 	virtual ResultSet setDirection(const DirectionProperty::type &value) = 0;
 	virtual ResultGet<VelocityRotateProperty::type> getVelocityRotate() const = 0;
-
-	void setObject(const AbstractObjectPtr &object);
-
-protected:
-	ResultGet<AbstractObjectPtr> getObject() const;
-
-private:
-	AbstractObjectPtr m_object;
 };
 
-using AbstractRotablePtr = std::shared_ptr<AbstractRotable>;
+using AbstractAdapterRotablePtr = std::shared_ptr<AbstractAdapterRotable>;
 
-class AdapterRotable : public AbstractRotable
+class AdapterRotable : public AbstractAdapterRotable
 {
 public:
 	explicit AdapterRotable(const AbstractObjectPtr &object);

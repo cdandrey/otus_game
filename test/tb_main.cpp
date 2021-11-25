@@ -1,12 +1,13 @@
 #include <gtest/gtest.h>
 
+#include "../src/commands/AbstractAdapter.cpp"
 #include "../src/commands/AdapterMovable.cpp"
 #include "../src/commands/AdapterRotable.cpp"
 #include "../src/commands/CommandMovable.cpp"
 #include "../src/commands/CommandRotable.cpp"
 #include "../src/objects/Objects.cpp"
-#include "../src/types/Vector.cpp"
 #include "../src/types/ExceptionError.cpp"
+#include "../src/types/Vector.cpp"
 
 namespace detail {
 
@@ -82,7 +83,7 @@ TEST(tb_main, move)
 	tank->setProperty(PositionProperty::key, Vector {12, 5, 0});
 	tank->setProperty(VelocityProperty::key, Vector {-7, 3, 0});
 
-	AbstractMovablePtr adapterMove = std::make_shared<AdapterMovable>(tank);
+	AbstractAdapterMovablePtr adapterMove = std::make_shared<AdapterMovable>(tank);
 	AbstractCommandPtr commandMove = std::make_shared<CommandMovable>(adapterMove);
 	commandMove->execute();
 
@@ -103,7 +104,7 @@ TEST(tb_main, rotate)
 	tank->setProperty(DirectionProperty::key, DirectionProperty::type {0, 1, 0});
 	tank->setProperty(VelocityRotateProperty::key, VelocityRotateProperty::type {1, 0, 0});
 
-	AbstractRotablePtr adapterRotate = std::make_shared<AdapterRotable>(tank);
+	AbstractAdapterRotablePtr adapterRotate = std::make_shared<AdapterRotable>(tank);
 	AbstractCommandPtr commandRotate = std::make_shared<CommandRotable>(adapterRotate);
 	commandRotate->execute();
 

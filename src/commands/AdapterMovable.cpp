@@ -4,29 +4,13 @@
 
 namespace otg {
 
-AbstractMovable::AbstractMovable(const AbstractObjectPtr &object)
-    : m_object {object}
+AbstractAdapterMovable::AbstractAdapterMovable(const AbstractObjectPtr &object)
+    : AbstractAdapter {object}
 {
-}
-
-void AbstractMovable::setObject(const AbstractObjectPtr &object)
-{
-	if (m_object != object) {
-		m_object = object;
-	}
-}
-
-ResultGet<AbstractObjectPtr> AbstractMovable::getObject() const
-{
-	if (m_object != nullptr) {
-		return m_object;
-	}
-
-	return makeUnexpected(ExceptionErrorType::NotInitialized, std::string {"Object of movable adapter is not initialized"});
 }
 
 AdapterMovable::AdapterMovable(const AbstractObjectPtr &object)
-    : AbstractMovable {object}
+    : AbstractAdapterMovable {object}
 {
 }
 
