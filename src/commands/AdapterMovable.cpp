@@ -4,28 +4,41 @@
 
 namespace otg {
 
-AdapterMovable::AdapterMovable(const AbstractObjectPtr &obj)
-    : m_obj{obj}
-{}
-
-
-PositionProperty::type AdapterMovable::getPosition() const
+AbstractAdapterMovable::AbstractAdapterMovable(const AbstractObjectPtr &object)
+    : AbstractAdapter {object}
 {
-    using Type = PositionProperty::type;
-
-    return m_obj->extractPropertyValue<Type>(m_obj->getProperty(PositionProperty::key));
 }
 
-void AdapterMovable::setPosition(const PositionProperty::type& value)
+AdapterMovable::AdapterMovable(const AbstractObjectPtr &object)
+    : AbstractAdapterMovable {object}
 {
-    m_obj->setProperty(PositionProperty::key,value);
 }
 
-VelocityProperty::type AdapterMovable::getVelocity() const
+ResultGet<PositionProperty::type> AdapterMovable::getPosition() const
 {
-    using Type = VelocityProperty::type;
+	const auto onGetPosition = [](const AbstractObjectPtr &object) -> ResultGet<PropertyValue> {
+		return object->getProperty(PositionProperty::key);
+	};
 
-    return m_obj->extractPropertyValue<Type>(m_obj->getProperty(VelocityProperty::key));
+	return getObject().and_then(onGetPosition).and_then(PositionProperty::cast);
 }
 
+ResultSet AdapterMovable::setPosition(const PositionProperty::type &value)
+{
+	const auto onSetPosition = [&value](const AbstractObjectPtr &object) -> ResultSet {
+		return object->setProperty(PositionProperty::key, value);
+	};
+
+	return getObject().and_then(onSetPosition);
 }
+
+ResultGet<VelocityProperty::type> AdapterMovable::getVelocity() const
+{
+	const auto onGetVelocity = [](const AbstractObjectPtr &object) -> ResultGet<PropertyValue> {
+		return object->getProperty(VelocityProperty::key);
+	};
+
+	return getObject().and_then(onGetVelocity).and_then(VelocityProperty::cast);
+}
+
+}  // namespace otg

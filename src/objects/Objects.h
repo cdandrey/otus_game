@@ -3,65 +3,51 @@
 #include <memory>
 #include <string>
 
+#include "../types/ExceptionError.h"
 #include "../types/Property.h"
 
-namespace otg
-{
+namespace otg {
 
 class AbstractObject
 {
 public:
+	template<typename... Args>
+	explicit AbstractObject(Args &&...args);
 
-    template <typename... Args>
-    explicit AbstractObject(Args &&...args);
+	virtual ~AbstractObject() = 0;
 
-    virtual ~AbstractObject() = 0;
-
-    PropertyValueOpt getProperty(PropertyKey key) const;
-    void setProperty(PropertyKey key, const PropertyValue &value);
-
-    template<typename T>
-    T extractPropertyValue(const PropertyValueOpt &value) const;
+	ResultGet<PropertyValue> getProperty(PropertyKey key) const;
+	ResultSet setProperty(PropertyKey key, const PropertyValue &value);
 
 private:
-    PropertyMap m_propertys;
+	PropertyMap m_propertys;
 
-    bool hasProperty(PropertyKey key) const;
+	ResultSet hasProperty(PropertyKey key) const;
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;
 
-template <typename... Args>
+template<typename... Args>
 AbstractObject::AbstractObject(Args &&...args)
-    : m_propertys{std::forward<Args>(args)...} {}
-
-template<typename T>
-T AbstractObject::extractPropertyValue(const PropertyValueOpt &value) const
+    : m_propertys {std::forward<Args>(args)...}
 {
-    try {
-        return std::any_cast<T>(value.value_or(T{}));
-    }
-    catch(std::bad_any_cast&) {
-    }
-
-    return T{};
 }
 
 class ObjectTank : public AbstractObject
 {
 public:
-    ObjectTank();
+	ObjectTank();
 };
 
 class ObjectBunker : public AbstractObject
 {
 public:
-    ObjectBunker();
+	ObjectBunker();
 };
 
 class ObjectTree : public AbstractObject
 {
 public:
-    ObjectTree();
+	ObjectTree();
 };
-}
+}  // namespace otg

@@ -10,13 +10,23 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(src)
+include_directories(SYSTEM
+	"${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/"
+)
+
+add_subdirectory("src")
+add_subdirectory("3rdparty")
 
 add_executable(OTG
     src/main.cpp
 )
 target_link_libraries(OTG
     OtgLib
+)
+target_include_directories(OTG
+	PRIVATE
+	"${OTG_3RDPARTY_INCLUDE_DIRECTORIES}"
+	"${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
@@ -33,5 +43,5 @@ if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
 
 endif()
 
-add_subdirectory(test)
 enable_testing()
+add_subdirectory("test")

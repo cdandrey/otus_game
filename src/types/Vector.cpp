@@ -2,29 +2,44 @@
 
 namespace otg {
 
-Vector& Vector::operator+=(const Vector& rhs)
+Vector &Vector::operator+=(const Vector &rhs)
 {
-    x += rhs.x;
-    y += rhs.y;
-    z += rhs.z;
+	x += rhs.x;
+	y += rhs.y;
+	z += rhs.z;
 
-    return *this;
+	return *this;
 }
 
-Vector operator+(Vector lhs,const Vector &rhs)
+Vector &Vector::operator-=(const Vector &rhs)
 {
-    lhs += rhs;
-    return lhs;
+	x -= rhs.x;
+	y -= rhs.y;
+	z -= rhs.z;
+
+	return *this;
 }
 
-bool operator== (const Vector& lhs,const Vector& rhs)
+Vector operator+(Vector lhs, const Vector &rhs)
 {
-    return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
+	lhs += rhs;
+	return lhs;
+}
+
+Vector operator-(Vector lhs, const Vector &rhs)
+{
+	lhs -= rhs;
+	return lhs;
+}
+
+bool operator==(const Vector &lhs, const Vector &rhs)
+{
+	return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
 }
 
 std::string Vector::toString() const
 {
-    return "{" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + "}";
+	return "{" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + "}";
 }
 
-}
+}  // namespace otg

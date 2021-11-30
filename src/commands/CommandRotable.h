@@ -8,14 +8,12 @@ namespace otg {
 class CommandRotable : public AbstractCommand
 {
 public:
-    
-    explicit CommandRotable(const AbstractRotablePtr &rotable);
+	explicit CommandRotable(const AbstractAdapterRotablePtr &rotable);
 
-    void execute() override;
+	ResultSet execute() override;
 
 private:
-
-    AbstractRotablePtr m_rotable;
+	AbstractAdapterRotablePtr m_rotable;
 };
 
-}
+}  // namespace otg

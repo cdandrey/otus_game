@@ -1,36 +1,30 @@
 #pragma once
 
-#include <memory>
-
-#include "../objects/Objects.h"
+#include "AbstractAdapter.h"
 
 namespace otg {
 
-class AbstractRotable
+class AbstractAdapterRotable : public AbstractAdapter
 {
 public:
+	explicit AbstractAdapterRotable(const AbstractObjectPtr &object);
+	virtual ~AbstractAdapterRotable() = default;
 
-    virtual ~AbstractRotable() = default;
-
-    virtual DirectionProperty::type getDirection() const = 0;
-    virtual void setDirection(const DirectionProperty::type &value) = 0;
-    virtual VelocityRotateProperty::type getVelocityRotate() const = 0;
+	virtual ResultGet<DirectionProperty::type> getDirection() const = 0;
+	virtual ResultSet setDirection(const DirectionProperty::type &value) = 0;
+	virtual ResultGet<VelocityRotateProperty::type> getVelocityRotate() const = 0;
 };
 
-using AbstractRotablePtr = std::shared_ptr<AbstractRotable>;
+using AbstractAdapterRotablePtr = std::shared_ptr<AbstractAdapterRotable>;
 
-class AdapterRotable : public AbstractRotable
+class AdapterRotable : public AbstractAdapterRotable
 {
 public:
-    
-    explicit AdapterRotable(const AbstractObjectPtr &obj);
-    
-    DirectionProperty::type getDirection() const override;
-    void setDirection(const DirectionProperty::type &value) override;
-    VelocityRotateProperty::type getVelocityRotate() const override;
+	explicit AdapterRotable(const AbstractObjectPtr &object);
 
-private:
-    AbstractObjectPtr m_obj;
+	ResultGet<DirectionProperty::type> getDirection() const override;
+	ResultSet setDirection(const DirectionProperty::type &value) override;
+	ResultGet<VelocityRotateProperty::type> getVelocityRotate() const override;
 };
 
-}
+}  // namespace otg

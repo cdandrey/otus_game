@@ -1,36 +1,30 @@
 #pragma once
 
-#include <memory>
-
-#include "../objects/Objects.h"
+#include "AbstractAdapter.h"
 
 namespace otg {
 
-class AbstractMovable
+class AbstractAdapterMovable : public AbstractAdapter
 {
 public:
+	explicit AbstractAdapterMovable(const AbstractObjectPtr &object);
+	virtual ~AbstractAdapterMovable() = default;
 
-    virtual ~AbstractMovable() = default;
-
-    virtual PositionProperty::type getPosition() const = 0;
-    virtual void setPosition(const PositionProperty::type &value) = 0;
-    virtual VelocityRotateProperty::type getVelocity() const = 0;
+	virtual ResultGet<PositionProperty::type> getPosition() const = 0;
+	virtual ResultSet setPosition(const PositionProperty::type &value) = 0;
+	virtual ResultGet<VelocityProperty::type> getVelocity() const = 0;
 };
 
-using AbstractMovablePtr = std::shared_ptr<AbstractMovable>;
+using AbstractAdapterMovablePtr = std::shared_ptr<AbstractAdapterMovable>;
 
-class AdapterMovable : public AbstractMovable
+class AdapterMovable : public AbstractAdapterMovable
 {
 public:
-    
-    explicit AdapterMovable(const AbstractObjectPtr &obj);
-    
-    PositionProperty::type getPosition() const override;
-    void setPosition(const PositionProperty::type &value) override;
-    VelocityRotateProperty::type getVelocity() const override;
+	explicit AdapterMovable(const AbstractObjectPtr &object);
 
-private:
-    AbstractObjectPtr m_obj;
+	ResultGet<PositionProperty::type> getPosition() const override;
+	ResultSet setPosition(const PositionProperty::type &value) override;
+	ResultGet<VelocityProperty::type> getVelocity() const override;
 };
 
-}
+}  // namespace otg

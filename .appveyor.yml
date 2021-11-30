@@ -20,6 +20,7 @@ install:
   - cmake ..
   - cmake --build . --config Release
   - set GTEST_LIBRARY_DIR=%cd%\lib\Release
+  - set GTEST_LIBRARY86_DIR=%cd%\lib\Release
   - set GTEST_INCLUDE_DIR=%ORIGIN_PATH%\googletest\googletest\include
   - cd %ORIGIN_PATH%
 
