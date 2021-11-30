@@ -1,5 +1,7 @@
 #include "Objects.h"
 
+#include <typeinfo>
+
 namespace otg {
 
 AbstractObject::~AbstractObject()
@@ -28,8 +30,8 @@ ResultSet AbstractObject::hasProperty(PropertyKey key) const
 		return std::true_type {};
 	}
 
-	std::string errorMsg {"Object " + typeName() + " does not have the property " + std::string {key}};
-	return makeUnexpected(ExceptionErrorType::Missing, errorMsg);
+	std::string msg {"Object " + std::string {typeid(*this).name()} + " does not have the property " + std::string {key}};
+	return makeUnexpected(ExceptionErrorType::Missing, msg);
 }
 
 ObjectTank::ObjectTank()
@@ -43,11 +45,6 @@ ObjectTank::ObjectTank()
 {
 }
 
-std::string ObjectTank::typeName() const
-{
-	return "Tank";
-}
-
 ObjectBunker::ObjectBunker()
     : AbstractObject {std::pair {PositionProperty::key, PositionProperty::type {}},
                       std::pair {HealthProperty::key, HealthProperty::type {}},
@@ -57,19 +54,9 @@ ObjectBunker::ObjectBunker()
 {
 }
 
-std::string ObjectBunker::typeName() const
-{
-	return "Bunker";
-}
-
 ObjectTree::ObjectTree()
     : AbstractObject {std::pair {PositionProperty::key, PositionProperty::type {}}, std::pair {HealthProperty::key, HealthProperty::type {}}}
 {
-}
-
-std::string ObjectTree::typeName() const
-{
-	return "Tree";
 }
 
 }  // namespace otg

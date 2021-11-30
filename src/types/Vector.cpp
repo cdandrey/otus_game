@@ -11,9 +11,24 @@ Vector &Vector::operator+=(const Vector &rhs)
 	return *this;
 }
 
+Vector &Vector::operator-=(const Vector &rhs)
+{
+	x -= rhs.x;
+	y -= rhs.y;
+	z -= rhs.z;
+
+	return *this;
+}
+
 Vector operator+(Vector lhs, const Vector &rhs)
 {
 	lhs += rhs;
+	return lhs;
+}
+
+Vector operator-(Vector lhs, const Vector &rhs)
+{
+	lhs -= rhs;
 	return lhs;
 }
 

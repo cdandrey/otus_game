@@ -11,7 +11,9 @@ struct Vector
 	int z = 0;
 
 	Vector &operator+=(const Vector &rhs);
+	Vector &operator-=(const Vector &rhs);
 	friend Vector operator+(Vector lhs, const Vector &rhs);
+	friend Vector operator-(Vector lhs, const Vector &rhs);
 	friend bool operator==(const Vector &lhs, const Vector &rhs);
 	std::string toString() const;
 };
