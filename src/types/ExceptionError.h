@@ -19,8 +19,8 @@ public:
 
 	const char *what() const noexcept override;
 
-	std::string errorMessage() const;
-	ExceptionErrorType errorType() const;
+	std::string message() const;
+	ExceptionErrorType type() const;
 
 private:
 	ExceptionErrorType m_type = ExceptionErrorType::Unknown;

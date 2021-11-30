@@ -13,12 +13,12 @@ const char *ExceptionError::what() const noexcept
 	return m_message.c_str();
 }
 
-ExceptionErrorType ExceptionError::errorType() const
+ExceptionErrorType ExceptionError::type() const
 {
 	return m_type;
 }
 
-std::string ExceptionError::errorMessage() const
+std::string ExceptionError::message() const
 {
 	return m_message;
 }
