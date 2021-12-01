@@ -10,7 +10,7 @@ class CommandRotable : public AbstractCommand
 public:
 	explicit CommandRotable(const AbstractAdapterRotablePtr &rotable);
 
-	ResultSet execute() override;
+	Result<void> execute() override;
 
 private:
 	AbstractAdapterRotablePtr m_rotable;

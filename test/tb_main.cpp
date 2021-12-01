@@ -18,7 +18,7 @@ void checkExistingProperty(const otg::AbstractObjectPtr &obj, const otg::Propert
 		FAIL() << error.message();
 	};
 
-	const auto onExist = [&obj, &key, &onMissing](const auto &&) {
+	const auto onExist = [&obj, &key, &onMissing]() {
 		obj->getProperty(key).map_error(onMissing);
 		SUCCEED();
 	};
@@ -28,13 +28,20 @@ void checkExistingProperty(const otg::AbstractObjectPtr &obj, const otg::Propert
 
 void checkMissingProperty(const otg::AbstractObjectPtr &obj, const otg::PropertyKey &key)
 {
-	const auto onExist = [&obj, &key](const auto &&) {
-		FAIL() << "Property \"" + std::string {key} + "\" exists for object " + std::string {typeid(*obj).name()};
+	const std::string errorMessage {"Property \"" + std::string {key} + "\" exists for object " + std::string {typeid(*obj).name()}};
+
+	const auto onExist = [&errorMessage]() {
+		FAIL() << errorMessage;
 	};
 
-	const auto onMissing = [&obj, &key, &onExist](const otg::ExceptionError &) {
-		obj->getProperty(key).map(onExist);
-		SUCCEED();
+	const auto onMissing = [&obj, &key, &errorMessage](const otg::ExceptionError &) {
+		obj->getProperty(key)
+		    .map([&errorMessage](const auto &&) {
+			    FAIL() << errorMessage;
+		    })
+		    .map_error([](const otg::ExceptionError &) {
+			    SUCCEED();
+		    });
 	};
 
 	obj->setProperty(key, {}).map(onExist).map_error(onMissing);
@@ -42,15 +49,13 @@ void checkMissingProperty(const otg::AbstractObjectPtr &obj, const otg::Property
 
 void checkSetProperty(const otg::AbstractObjectPtr &obj, const otg::PropertyKey &key, const otg::PropertyValue &value)
 {
-	const auto onError = [](const otg::ExceptionError &error) {
-		FAIL() << error.message();
-	};
-
-	const auto onSuccess = [](std::true_type) {
-		SUCCEED();
-	};
-
-	obj->setProperty(key, value);
+	obj->setProperty(key, value)
+	    .map([]() {
+		    SUCCEED();
+	    })
+	    .map_error([](const otg::ExceptionError &error) {
+		    FAIL() << error.message();
+	    });
 }
 
 template<class P, class T = P::type>
@@ -62,7 +67,7 @@ void checkExecute(const otg::AbstractObjectPtr &obj, otg::AbstractCommandPtr &cm
 		FAIL() << error.message();
 	};
 
-	const auto onSuccess = [&obj, &expectValue](std::true_type) {
+	const auto onSuccess = [&obj, &expectValue]() {
 		const auto onCastSuccess = [&expectValue](const T &actualValue) {
 			EXPECT_EQ(actualValue, expectValue);
 		};
@@ -80,7 +85,7 @@ void checkExecuteFail(const otg::AbstractObjectPtr &obj, otg::AbstractCommandPtr
 		SUCCEED();
 	};
 
-	const auto onSuccess = [&obj, &cmd](std::true_type) {
+	const auto onSuccess = [&obj, &cmd]() {
 		FAIL() << "For object \""  //
 		              + std::string {typeid(*obj).name()}  //
 		              + "\" command \"" + std::string {typeid(*cmd).name()}  //

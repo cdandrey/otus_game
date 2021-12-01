@@ -16,13 +16,13 @@ public:
 
 	virtual ~AbstractObject() = 0;
 
-	ResultGet<PropertyValue> getProperty(PropertyKey key) const;
-	ResultSet setProperty(PropertyKey key, const PropertyValue &value);
+	Result<PropertyValue> getProperty(PropertyKey key) const;
+	Result<void> setProperty(PropertyKey key, const PropertyValue &value);
 
 private:
 	PropertyMap m_propertys;
 
-	ResultSet hasProperty(PropertyKey key) const;
+	Result<void> hasProperty(PropertyKey key) const;
 };
 
 using AbstractObjectPtr = std::shared_ptr<AbstractObject>;

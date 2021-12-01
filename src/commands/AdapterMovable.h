@@ -10,9 +10,9 @@ public:
 	explicit AbstractAdapterMovable(const AbstractObjectPtr &object);
 	virtual ~AbstractAdapterMovable() = default;
 
-	virtual ResultGet<PositionProperty::type> getPosition() const = 0;
-	virtual ResultSet setPosition(const PositionProperty::type &value) = 0;
-	virtual ResultGet<VelocityProperty::type> getVelocity() const = 0;
+	virtual Result<PositionProperty::type> getPosition() const = 0;
+	virtual Result<void> setPosition(const PositionProperty::type &value) = 0;
+	virtual Result<VelocityProperty::type> getVelocity() const = 0;
 };
 
 using AbstractAdapterMovablePtr = std::shared_ptr<AbstractAdapterMovable>;
@@ -22,9 +22,9 @@ class AdapterMovable : public AbstractAdapterMovable
 public:
 	explicit AdapterMovable(const AbstractObjectPtr &object);
 
-	ResultGet<PositionProperty::type> getPosition() const override;
-	ResultSet setPosition(const PositionProperty::type &value) override;
-	ResultGet<VelocityProperty::type> getVelocity() const override;
+	Result<PositionProperty::type> getPosition() const override;
+	Result<void> setPosition(const PositionProperty::type &value) override;
+	Result<VelocityProperty::type> getVelocity() const override;
 };
 
 }  // namespace otg

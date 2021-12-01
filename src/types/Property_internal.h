@@ -18,7 +18,7 @@ struct Property
 	{                                                                                                                                                          \
 		using type = Type;                                                                                                                                     \
 		static constexpr PropertyKey key = Key;                                                                                                                \
-		static ResultGet<type> cast(PropertyValue value)                                                                                                       \
+		static Result<type> cast(PropertyValue value)                                                                                                          \
 		{                                                                                                                                                      \
 			try {                                                                                                                                              \
 				return std::any_cast<type>(value);                                                                                                             \

@@ -14,27 +14,27 @@ AdapterRotable::AdapterRotable(const AbstractObjectPtr &object)
 {
 }
 
-ResultGet<DirectionProperty::type> AdapterRotable::getDirection() const
+Result<DirectionProperty::type> AdapterRotable::getDirection() const
 {
-	const auto onGetDirection = [](const AbstractObjectPtr &object) -> ResultGet<PropertyValue> {
+	const auto onGetDirection = [](const AbstractObjectPtr &object) -> Result<PropertyValue> {
 		return object->getProperty(DirectionProperty::key);
 	};
 
 	return getObject().and_then(onGetDirection).and_then(DirectionProperty::cast);
 }
 
-ResultSet AdapterRotable::setDirection(const PositionProperty::type &value)
+Result<void> AdapterRotable::setDirection(const PositionProperty::type &value)
 {
-	const auto onSetDirection = [&value](const AbstractObjectPtr &object) -> ResultSet {
+	const auto onSetDirection = [&value](const AbstractObjectPtr &object) -> Result<void> {
 		return object->setProperty(DirectionProperty::key, value);
 	};
 
 	return getObject().and_then(onSetDirection);
 }
 
-ResultGet<VelocityRotateProperty::type> AdapterRotable::getVelocityRotate() const
+Result<VelocityRotateProperty::type> AdapterRotable::getVelocityRotate() const
 {
-	const auto onGetVelocityRotate = [](const AbstractObjectPtr &object) -> ResultGet<PropertyValue> {
+	const auto onGetVelocityRotate = [](const AbstractObjectPtr &object) -> Result<PropertyValue> {
 		return object->getProperty(VelocityRotateProperty::key);
 	};
 

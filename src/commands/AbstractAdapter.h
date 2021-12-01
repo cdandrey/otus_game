@@ -13,7 +13,7 @@ public:
 	void setObject(const AbstractObjectPtr &object);
 
 protected:
-	ResultGet<AbstractObjectPtr> getObject() const;
+	Result<AbstractObjectPtr> getObject() const;
 
 private:
 	AbstractObjectPtr m_object;

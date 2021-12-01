@@ -29,8 +29,7 @@ private:
 
 tl::unexpected<ExceptionError> makeUnexpected(const ExceptionErrorType &type, const std::string &message = {});
 
-template<typename Result>
-using ResultGet = tl::expected<Result, ExceptionError>;
-using ResultSet = tl::expected<std::true_type, ExceptionError>;
+template<class T>
+using Result = tl::expected<T, ExceptionError>;
 
 }  // namespace otg

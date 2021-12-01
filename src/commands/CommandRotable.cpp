@@ -7,10 +7,10 @@ CommandRotable::CommandRotable(const AbstractAdapterRotablePtr &rotable)
 {
 }
 
-ResultSet CommandRotable::execute()
+Result<void> CommandRotable::execute()
 {
-	const auto onGetVelocityRotate = [this](const DirectionProperty::type &position) -> ResultSet {
-		const auto onSetDirection = [this, &position](const VelocityRotateProperty::type &velocity) -> ResultSet {
+	const auto onGetVelocityRotate = [this](const DirectionProperty::type &position) -> Result<void> {
+		const auto onSetDirection = [this, &position](const VelocityRotateProperty::type &velocity) -> Result<void> {
 			return m_rotable->setDirection(position + velocity);
 		};
 		return m_rotable->getVelocityRotate().and_then(onSetDirection);
