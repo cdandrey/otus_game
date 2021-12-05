@@ -7,6 +7,9 @@ set(commands_headers
     commands/AdapterRotable.h
     commands/CommandMovable.h
     commands/CommandRotable.h
+    commands/CommandWorker.h
+    commands/CommandStop.h
+    commands/CommandInterrupt.h
 )
 
 set(commands_sources
@@ -15,6 +18,9 @@ set(commands_sources
     commands/AdapterRotable.cpp
     commands/CommandMovable.cpp
     commands/CommandRotable.cpp
+    commands/CommandWorker.cpp
+    commands/CommandStop.cpp
+    commands/CommandInterrupt.cpp
 )
 
 set(object_headers
