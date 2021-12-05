@@ -4,8 +4,11 @@
 #include "../src/commands/AbstractAdapter.cpp"
 #include "../src/commands/AdapterMovable.cpp"
 #include "../src/commands/AdapterRotable.cpp"
+#include "../src/commands/CommandInterrupt.cpp"
 #include "../src/commands/CommandMovable.cpp"
 #include "../src/commands/CommandRotable.cpp"
+#include "../src/commands/CommandStop.cpp"
+#include "../src/commands/CommandWorker.cpp"
 #include "../src/objects/Objects.cpp"
 #include "../src/types/ExceptionError.cpp"
 #include "../src/types/Vector.cpp"
@@ -188,6 +191,63 @@ TEST(tb_main, rotate)
 	AbstractAdapterRotablePtr adapterRotateTree = std::make_shared<AdapterRotable>(tree);
 	AbstractCommandPtr commandRotateTree = std::make_shared<CommandRotable>(adapterRotateTree);
 	detail::checkExecuteFail(tree, commandRotateTree);
+}
+
+TEST(tb_main, worker)
+{
+	using namespace otg;
+
+	std::vector<std::tuple<PositionProperty::type, AbstractObjectPtr, AbstractCommandPtr>> tasks;
+
+	for (int i = 0; i < 10; ++i) {
+		const PositionProperty::type beginPosition {i + 5, i + 10, 0};
+		const PositionProperty::type expectPosition {i, i * 2, 0};
+		const VelocityProperty::type velocity {expectPosition - beginPosition};
+
+		AbstractObjectPtr tank = std::make_shared<ObjectTank>();
+		tank->setProperty(PositionProperty::key, beginPosition);
+		tank->setProperty(VelocityProperty::key, velocity);
+		AbstractAdapterMovablePtr adapterMovable = std::make_shared<AdapterMovable>(tank);
+		AbstractCommandPtr commandMovable = std::make_shared<CommandMovable>(adapterMovable);
+
+		tasks.emplace_back(expectPosition, tank, commandMovable);
+	}
+
+	// Scope is needed to call destructor of worker on exit
+	// In the destructor thread of execution is joined
+	{
+		CommandWorker worker;
+		worker.push(std::make_shared<CommandStop>());
+
+		// Pushing command that will execute with an error
+		AbstractObjectPtr tree = std::make_shared<ObjectTree>();
+		AbstractAdapterMovablePtr errorAdapterMovable = std::make_shared<AdapterMovable>(tree);
+		AbstractCommandPtr errorCommandMovable = std::make_shared<CommandMovable>(errorAdapterMovable);
+		worker.push(errorCommandMovable);
+
+		for (auto &[pos, obj, cmd] : tasks) {
+			worker.push(cmd);
+		}
+
+		worker.push(std::make_shared<CommandInterrupt>());
+
+		// Pushing commands to be interrupted
+		for (const auto &[pos, obj, cmd] : tasks) {
+			worker.push(cmd);
+		}
+	}
+
+	for (const auto &[expectPosition, obj, cmd] : tasks) {
+		const auto onCompareResultExecute = [&expectPosition](const PositionProperty::type &actualPosition) {
+			EXPECT_EQ(actualPosition, expectPosition);
+		};
+
+		const auto onError = [](const ExceptionError &error) {
+			FAIL() << error.message();
+		};
+
+		obj->getProperty(PositionProperty::key).and_then(PositionProperty::cast).map(onCompareResultExecute).map_error(onError);
+	}
 }
 
 int main(int argc, char *argv[])

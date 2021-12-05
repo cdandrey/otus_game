@@ -9,6 +9,8 @@ enum class ExceptionErrorType
 	Missing,
 	BadCast,
 	NotInitialized,
+	ExecuteStop,
+	ExecuteInterrupt,
 	Unknown
 };
 
