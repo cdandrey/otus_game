@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-if (DEFINED ENV{GTEST_LIBRARY_DIR})
+if (MSVC)
     if (${CMAKE_CXX_COMPILER_ARCHITECTURE_ID} STREQUAL "x64")
         set(GTEST_ROOT $ENV{GTEST_LIBRARY_DIR})
     else()
