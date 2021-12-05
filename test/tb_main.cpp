@@ -145,20 +145,22 @@ TEST(tb_main, move)
 	const VelocityProperty::type velocity {expectPosition - beginPosition};
 
 	AbstractObjectPtr tank = std::make_shared<ObjectTank>();
-	AbstractAdapterMovablePtr adapterMovable = std::make_shared<AdapterMovable>(tank);
-	AbstractCommandPtr commandMove = std::make_shared<CommandMovable>(adapterMovable);
+	AbstractAdapterMovablePtr adapterMovableTank = std::make_shared<AdapterMovable>(tank);
+	AbstractCommandPtr commandMovableTank = std::make_shared<CommandMovable>(adapterMovableTank);
 
 	detail::checkSetProperty(tank, PositionProperty::key, beginPosition);
 	detail::checkSetProperty(tank, VelocityProperty::key, velocity);
-	detail::checkExecute<PositionProperty>(tank, commandMove, expectPosition);
+	detail::checkExecute<PositionProperty>(tank, commandMovableTank, expectPosition);
 
 	AbstractObjectPtr bunker = std::make_shared<ObjectBunker>();
-	adapterMovable->setObject(bunker);
-	detail::checkExecuteFail(bunker, commandMove);
+	AbstractAdapterMovablePtr adapterMovableBunker = std::make_shared<AdapterMovable>(bunker);
+	AbstractCommandPtr commandMovableBunker = std::make_shared<CommandMovable>(adapterMovableBunker);
+	detail::checkExecuteFail(bunker, commandMovableBunker);
 
 	AbstractObjectPtr tree = std::make_shared<ObjectTree>();
-	adapterMovable->setObject(tree);
-	detail::checkExecuteFail(tree, commandMove);
+	AbstractAdapterMovablePtr adapterMovableTree = std::make_shared<AdapterMovable>(tree);
+	AbstractCommandPtr commandMovableTree = std::make_shared<CommandMovable>(adapterMovableTree);
+	detail::checkExecuteFail(tree, commandMovableTree);
 }
 
 TEST(tb_main, rotate)
@@ -170,20 +172,22 @@ TEST(tb_main, rotate)
 	VelocityRotateProperty::type velocityRotate = expectDirection - beginDirection;
 
 	AbstractObjectPtr tank = std::make_shared<ObjectTank>();
-	AbstractAdapterRotablePtr adapterRotate = std::make_shared<AdapterRotable>(tank);
-	AbstractCommandPtr commandRotate = std::make_shared<CommandRotable>(adapterRotate);
+	AbstractAdapterRotablePtr adapterRotateTank = std::make_shared<AdapterRotable>(tank);
+	AbstractCommandPtr commandRotateTank = std::make_shared<CommandRotable>(adapterRotateTank);
 
 	detail::checkSetProperty(tank, DirectionProperty::key, beginDirection);
 	detail::checkSetProperty(tank, VelocityRotateProperty::key, velocityRotate);
-	detail::checkExecute<DirectionProperty>(tank, commandRotate, expectDirection);
+	detail::checkExecute<DirectionProperty>(tank, commandRotateTank, expectDirection);
 
 	AbstractObjectPtr bunker = std::make_shared<ObjectBunker>();
-	adapterRotate->setObject(bunker);
-	detail::checkExecuteFail(bunker, commandRotate);
+	AbstractAdapterRotablePtr adapterRotateBunker = std::make_shared<AdapterRotable>(bunker);
+	AbstractCommandPtr commandRotateBunker = std::make_shared<CommandRotable>(adapterRotateBunker);
+	detail::checkExecuteFail(bunker, commandRotateBunker);
 
 	AbstractObjectPtr tree = std::make_shared<ObjectTree>();
-	adapterRotate->setObject(tree);
-	detail::checkExecuteFail(tree, commandRotate);
+	AbstractAdapterRotablePtr adapterRotateTree = std::make_shared<AdapterRotable>(tree);
+	AbstractCommandPtr commandRotateTree = std::make_shared<CommandRotable>(adapterRotateTree);
+	detail::checkExecuteFail(tree, commandRotateTree);
 }
 
 int main(int argc, char *argv[])

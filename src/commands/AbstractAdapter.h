@@ -10,8 +10,6 @@ public:
 	explicit AbstractAdapter(const AbstractObjectPtr &object);
 	virtual ~AbstractAdapter() = 0;
 
-	void setObject(const AbstractObjectPtr &object);
-
 protected:
 	Result<AbstractObjectPtr> getObject() const;
 

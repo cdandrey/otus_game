@@ -11,13 +11,6 @@ AbstractAdapter::~AbstractAdapter()
 {
 }
 
-void AbstractAdapter::setObject(const AbstractObjectPtr &object)
-{
-	if (m_object != object) {
-		m_object = object;
-	}
-}
-
 Result<AbstractObjectPtr> AbstractAdapter::getObject() const
 {
 	if (m_object != nullptr) {
