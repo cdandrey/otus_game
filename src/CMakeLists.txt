@@ -35,12 +35,14 @@ set(types_headers
     types/Property.h
     types/Property_internal.h
     types/ExceptionError.h
-    types/Vector.h
+    types/Point.h
+    types/VectorVelocity.h
 )
 
 set(types_sources
     types/ExceptionError.cpp
-    types/Vector.cpp
+    types/Point.cpp
+    types/VectorVelocity.cpp
 )
 
 add_library(OtgLib

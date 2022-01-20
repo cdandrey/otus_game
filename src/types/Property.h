@@ -6,7 +6,8 @@
 
 #include "ExceptionError.h"
 #include "Property_internal.h"
-#include "Vector.h"
+#include "VectorVelocity.h"
+#include "Point.h"
 
 namespace otg {
 
@@ -18,12 +19,12 @@ constexpr PropertyKey PropertyKeyAmmo = "Ammo";
 constexpr PropertyKey PropertyKeyDirection = "Direction";
 constexpr PropertyKey PropertyKeyVelocityRotate = "VelocityRotate";
 
-SPECIFY_PROPERTY_TYPE(PropertyKeyPosition, Vector, PositionProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyVelocity, Vector, VelocityProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyPosition, Point, PositionProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyVelocity, VectorVelocity, VelocityProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyHealth, int, HealthProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyFuel, int, FuelProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyAmmo, int, AmmoProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyDirection, Vector, DirectionProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyVelocityRotate, Vector, VelocityRotateProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyDirection, Point, DirectionProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyVelocityRotate, VectorVelocity, VelocityRotateProperty)
 
 }  // namespace otg

@@ -11,7 +11,8 @@
 #include "../src/commands/CommandWorker.cpp"
 #include "../src/objects/Objects.cpp"
 #include "../src/types/ExceptionError.cpp"
-#include "../src/types/Vector.cpp"
+#include "../src/types/Point.cpp"
+#include "../src/types/VectorVelocity.cpp"
 
 namespace detail {
 
@@ -143,9 +144,10 @@ TEST(tb_main, move)
 {
     using namespace otg;
 
-    const PositionProperty::type beginPosition{ 12, 5, 0 };
-    const PositionProperty::type expectPosition{ 5, 8, 0 };
-    const VelocityProperty::type velocity{ expectPosition - beginPosition };
+    const PositionProperty::type beginPosition{ 12, 5 };
+    const PositionProperty::type expectPosition{ 5, 8 };
+    const PositionProperty::type diffPosition = expectPosition - beginPosition;
+    const VelocityProperty::type velocity{ diffPosition.x,diffPosition.y };
 
     AbstractObjectPtr tank = std::make_shared<ObjectTank>();
     AbstractAdapterMovablePtr adapterMovableTank = std::make_shared<AdapterMovable>(tank);
@@ -170,9 +172,10 @@ TEST(tb_main, rotate)
 {
     using namespace otg;
 
-    DirectionProperty::type beginDirection{ 0, 1, 0 };
-    DirectionProperty::type expectDirection{ 1, 1, 0 };
-    VelocityRotateProperty::type velocityRotate = expectDirection - beginDirection;
+    DirectionProperty::type beginDirection{ 0, 1 };
+    DirectionProperty::type expectDirection{ 1, 1 };
+    DirectionProperty::type diffDirection = expectDirection - beginDirection;
+    VelocityRotateProperty::type velocityRotate{ diffDirection.x, diffDirection.y };
 
     AbstractObjectPtr tank = std::make_shared<ObjectTank>();
     AbstractAdapterRotablePtr adapterRotateTank = std::make_shared<AdapterRotable>(tank);
@@ -201,9 +204,10 @@ TEST(tb_main, worker)
 
     for (int i = 0; i < 10; ++i)
     {
-        const PositionProperty::type beginPosition{ i + 5, i + 10, 0 };
-        const PositionProperty::type expectPosition{ i, i * 2, 0 };
-        const VelocityProperty::type velocity{ expectPosition - beginPosition };
+        const PositionProperty::type beginPosition{ i + 5, i + 10 };
+        const PositionProperty::type expectPosition{ i, i * 2 };
+        const PositionProperty::type diffPosition = expectPosition - beginPosition;
+        const VelocityProperty::type velocity{ diffPosition.x,diffPosition.y };
 
         AbstractObjectPtr tank = std::make_shared<ObjectTank>();
         tank->setProperty(PositionProperty::key, beginPosition);
