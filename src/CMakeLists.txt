@@ -1,10 +1,20 @@
 cmake_minimum_required(VERSION 3.2)
 
+set(adapters_headers
+    adapters/AbstractAdapter.h
+    adapters/AbstractCommand.h
+    adapters/AdapterMovable.h
+    adapters/AdapterRotable.h
+)
+
+set(adapters_sources
+    adapters/AbstractAdapter.cpp
+    adapters/AdapterMovable.cpp
+    adapters/AdapterRotable.cpp
+)
+
 set(commands_headers
-    commands/AbstractAdapter.h
     commands/AbstractCommand.h
-    commands/AdapterMovable.h
-    commands/AdapterRotable.h
     commands/CommandMovable.h
     commands/CommandRotable.h
     commands/CommandWorker.h
@@ -13,9 +23,6 @@ set(commands_headers
 )
 
 set(commands_sources
-    commands/AbstractAdapter.cpp
-    commands/AdapterMovable.cpp
-    commands/AdapterRotable.cpp
     commands/CommandMovable.cpp
     commands/CommandRotable.cpp
     commands/CommandWorker.cpp

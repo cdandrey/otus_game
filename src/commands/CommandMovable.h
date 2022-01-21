@@ -1,19 +1,19 @@
 #pragma once
 
 #include "AbstractCommand.h"
-#include "AdapterMovable.h"
+#include "../adapters/AdapterMovable.h"
 
 namespace otg {
 
 class CommandMovable : public AbstractCommand
 {
 public:
-	explicit CommandMovable(const AbstractAdapterMovablePtr &movable);
+    explicit CommandMovable(const AbstractAdapterMovablePtr& movable);
 
-	Result<void> execute() override;
+    Result<void> execute() override;
 
 private:
-	AbstractAdapterMovablePtr m_movable;
+    AbstractAdapterMovablePtr m_movable;
 };
 
 }  // namespace otg

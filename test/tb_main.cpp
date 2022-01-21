@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <typeinfo>
 
-#include "../src/commands/AbstractAdapter.cpp"
-#include "../src/commands/AdapterMovable.cpp"
-#include "../src/commands/AdapterRotable.cpp"
+#include "../src/adapters/AbstractAdapter.cpp"
+#include "../src/adapters/AdapterMovable.cpp"
+#include "../src/adapters/AdapterRotable.cpp"
 #include "../src/commands/CommandInterrupt.cpp"
 #include "../src/commands/CommandMovable.cpp"
 #include "../src/commands/CommandRotable.cpp"
