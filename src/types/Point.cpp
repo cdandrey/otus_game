@@ -1,35 +1,6 @@
 #include "Point.h"
-#include "VectorVelocity.h"
 
 namespace otg {
-
-Point& Point::operator+=(const VectorVelocity& vec)
-{
-    x += vec.dx;
-    y += vec.dy;
-
-    return *this;
-}
-
-Point& Point::operator-=(const VectorVelocity& vec)
-{
-    x -= vec.dx;
-    y -= vec.dy;
-
-    return *this;
-}
-
-Point operator+(Point pnt, const VectorVelocity& vec)
-{
-    pnt += vec;
-    return pnt;
-}
-
-Point operator-(Point pnt, const VectorVelocity& vec)
-{
-    pnt -= vec;
-    return pnt;
-}
 
 Point& Point::operator+=(const Point& rhs)
 {

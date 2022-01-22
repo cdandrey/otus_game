@@ -4,17 +4,10 @@
 
 namespace otg {
 
-struct VectorVelocity;
-
 struct Point
 {
     int x = 0;
     int y = 0;
-
-    Point& operator+=(const VectorVelocity& vec);
-    Point& operator-=(const VectorVelocity& vec);
-    friend Point operator+(Point pnt, const VectorVelocity& vec);
-    friend Point operator-(Point pnt, const VectorVelocity& vec);
 
     Point& operator+=(const Point& rhs);
     Point& operator-=(const Point& rhs);
