@@ -23,7 +23,7 @@ Result<DirectionProperty::type> AdapterRotable::getDirection() const
     return getObject().and_then(onGetDirection).and_then(DirectionProperty::cast);
 }
 
-Result<void> AdapterRotable::setDirection(const PositionProperty::type& value)
+Result<void> AdapterRotable::setDirection(const DirectionProperty::type& value)
 {
     const auto onSetDirection = [&value](const AbstractObjectPtr& object) -> Result<void> {
         return object->setProperty(DirectionProperty::key, value);

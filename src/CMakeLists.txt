@@ -42,12 +42,15 @@ set(types_headers
     types/Property.h
     types/Property_internal.h
     types/ExceptionError.h
+    types/Angel.h
     types/Point.h
     types/VectorVelocity.h
+    types/VelocityRotate.h
 )
 
 set(types_sources
     types/ExceptionError.cpp
+    types/Angel.cpp
     types/Point.cpp
     types/VectorVelocity.cpp
 )

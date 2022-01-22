@@ -13,6 +13,7 @@
 #include "../src/types/ExceptionError.cpp"
 #include "../src/types/Point.cpp"
 #include "../src/types/VectorVelocity.cpp"
+#include "../src/types/Angel.cpp"
 
 namespace detail {
 
@@ -172,10 +173,10 @@ TEST(tb_main, rotate)
 {
     using namespace otg;
 
-    DirectionProperty::type beginDirection{ 0, 1 };
-    DirectionProperty::type expectDirection{ 1, 1 };
+    DirectionProperty::type beginDirection{ Angel::twoPi / 4 };
+    DirectionProperty::type expectDirection{ Angel::twoPi / 8 };
     DirectionProperty::type diffDirection = expectDirection - beginDirection;
-    VelocityRotateProperty::type velocityRotate{ diffDirection.x, diffDirection.y };
+    VelocityRotateProperty::type velocityRotate{ diffDirection };
 
     AbstractObjectPtr tank = std::make_shared<ObjectTank>();
     AbstractAdapterRotablePtr adapterRotateTank = std::make_shared<AdapterRotable>(tank);

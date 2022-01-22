@@ -8,6 +8,8 @@
 #include "Property_internal.h"
 #include "VectorVelocity.h"
 #include "Point.h"
+#include "Angel.h"
+#include "VelocityRotate.h"
 
 namespace otg {
 
@@ -24,7 +26,7 @@ SPECIFY_PROPERTY_TYPE(PropertyKeyVelocity, VectorVelocity, VelocityProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyHealth, int, HealthProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyFuel, int, FuelProperty)
 SPECIFY_PROPERTY_TYPE(PropertyKeyAmmo, int, AmmoProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyDirection, Point, DirectionProperty)
-SPECIFY_PROPERTY_TYPE(PropertyKeyVelocityRotate, VectorVelocity, VelocityRotateProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyDirection, Angel, DirectionProperty)
+SPECIFY_PROPERTY_TYPE(PropertyKeyVelocityRotate, VelocityRotate, VelocityRotateProperty)
 
 }  // namespace otg
