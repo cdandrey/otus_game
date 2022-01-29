@@ -53,6 +53,7 @@ set(types_sources
     types/Angel.cpp
     types/Point.cpp
     types/VectorVelocity.cpp
+    types/VelocityRotate.cpp
 )
 
 add_library(OtgLib
