@@ -6,11 +6,15 @@ namespace otg {
 
 AbstractAdapterRotable::AbstractAdapterRotable(const AbstractObjectPtr& object)
     : AbstractAdapter{ object }
+    , AbstractAdapterDirectionPropertyGetter{ object }
+    , AbstractAdapterDirectionPropertySetter{ object }
+    , AbstractAdapterVelocityRotatePropertyGetter{ object }
 {
 }
 
 AdapterRotable::AdapterRotable(const AbstractObjectPtr& object)
-    : AbstractAdapterRotable{ object }
+    : AbstractAdapter{ object }
+    , AbstractAdapterRotable{ object }
 {
 }
 

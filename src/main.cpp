@@ -1,9 +1,9 @@
 #include <iostream>
 
-int main(int, char **)
+int main(int, char**)
 {
-	std::cout << "Start game..." << std::endl;
-	std::cout << "End game" << std::endl;
+    std::cout << "Start game..." << std::endl;
+    std::cout << "End game" << std::endl;
 
-	return 0;
+    return 0;
 }

@@ -7,7 +7,7 @@ using PropertyKey = std::string_view;
 using PropertyValue = std::any;
 using PropertyMap = std::unordered_map<PropertyKey, PropertyValue>;
 
-template<const PropertyKey &key>
+template<const PropertyKey& key>
 struct Property
 {
 };
