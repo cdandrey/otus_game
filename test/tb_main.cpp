@@ -167,6 +167,7 @@ TEST(tb_main, move)
     AbstractAdapterMovablePtr adapterMovableTree = std::make_shared<AdapterMovable>(tree);
     AbstractCommandPtr commandMovableTree = std::make_shared<CommandMovable>(adapterMovableTree);
     detail::checkExecuteFail(tree, commandMovableTree);
+
 }
 
 TEST(tb_main, rotate)
