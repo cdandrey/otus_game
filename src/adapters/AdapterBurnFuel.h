@@ -11,7 +11,7 @@ class AbstractAdapterMovableBurnFuel
     , public AbstractAdapterVelocityPropertyGetter
 {
 public:
-    explicit AbstractAdapterMovableBurnFuel(const AbstractObjectPtr& object);
+    explicit AbstractAdapterMovableBurnFuel() = default;
     virtual ~AbstractAdapterMovableBurnFuel() = default;
 
     virtual Result<FuelProperty::type> getFuel() const = 0;
@@ -37,7 +37,7 @@ class AbstractAdapterRotableBurnFuel
     , public AbstractAdapterVelocityRotatePropertyGetter
 {
 public:
-    explicit AbstractAdapterRotableBurnFuel(const AbstractObjectPtr& object);
+    explicit AbstractAdapterRotableBurnFuel() = default;
     virtual ~AbstractAdapterRotableBurnFuel() = default;
 
     virtual Result<FuelProperty::type> getFuel() const = 0;

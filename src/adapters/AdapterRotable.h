@@ -11,7 +11,7 @@ class AbstractAdapterRotable
     , public AbstractAdapterDirectionPropertySetter
 {
 public:
-    explicit AbstractAdapterRotable(const AbstractObjectPtr& object);
+    explicit AbstractAdapterRotable() = default;
     virtual ~AbstractAdapterRotable() = default;
 
     virtual Result<DirectionProperty::type> getDirection() const = 0;

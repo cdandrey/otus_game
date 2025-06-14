@@ -8,8 +8,7 @@ namespace otg {
 class AbstractAdapter##Key##PropertyGetter : virtual public AbstractAdapter \
 { \
 public: \
-    explicit AbstractAdapter##Key##PropertyGetter(const AbstractObjectPtr& object) \
-        : AbstractAdapter{ object } {} \
+    explicit AbstractAdapter##Key##PropertyGetter() {} \
 \
     virtual ~AbstractAdapter##Key##PropertyGetter() = 0 {} \
     \
@@ -28,8 +27,7 @@ protected: \
 class AbstractAdapter##Key##PropertySetter : virtual public AbstractAdapter \
 { \
 public: \
-    explicit AbstractAdapter##Key##PropertySetter(const AbstractObjectPtr& object) \
-        : AbstractAdapter{ object } {} \
+    explicit AbstractAdapter##Key##PropertySetter() {} \
 \
     virtual ~AbstractAdapter##Key##PropertySetter() = 0 {}\
 \

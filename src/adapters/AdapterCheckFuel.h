@@ -10,7 +10,7 @@ class AbstractAdapterMovableCheckFuel
     , public AbstractAdapterVelocityPropertyGetter
 {
 public:
-    explicit AbstractAdapterMovableCheckFuel(const AbstractObjectPtr& object);
+    explicit AbstractAdapterMovableCheckFuel() = default;
     virtual ~AbstractAdapterMovableCheckFuel() = default;
 
     virtual Result<FuelProperty::type> getFuel() const = 0;
@@ -33,7 +33,7 @@ class AbstractAdapterRotableCheckFuel
     , public AbstractAdapterVelocityRotatePropertyGetter
 {
 public:
-    explicit AbstractAdapterRotableCheckFuel(const AbstractObjectPtr& object);
+    explicit AbstractAdapterRotableCheckFuel() = default;
     virtual ~AbstractAdapterRotableCheckFuel() = default;
 
     virtual Result<FuelProperty::type> getFuel() const = 0;

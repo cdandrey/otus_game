@@ -11,7 +11,7 @@ class AbstractAdapterMovable
     , public AbstractAdapterPositionPropertySetter
 {
 public:
-    explicit AbstractAdapterMovable(const AbstractObjectPtr& object);
+    explicit AbstractAdapterMovable() = default;
     virtual ~AbstractAdapterMovable() = default;
 
     virtual Result<PositionProperty::type> getPosition() const = 0;

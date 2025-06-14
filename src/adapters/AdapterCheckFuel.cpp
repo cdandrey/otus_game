@@ -4,15 +4,8 @@
 
 namespace otg {
 
-AbstractAdapterMovableCheckFuel::AbstractAdapterMovableCheckFuel(const AbstractObjectPtr& object)
-    : AbstractAdapterFuelPropertyGetter{ object }
-    , AbstractAdapterVelocityPropertyGetter{ object }
-{
-}
-
 AdapterMovableCheckFuel::AdapterMovableCheckFuel(const AbstractObjectPtr& object)
     : AbstractAdapter{ object }
-    , AbstractAdapterMovableCheckFuel{ object }
 {
 }
 
@@ -26,15 +19,8 @@ Result<VelocityProperty::type> AdapterMovableCheckFuel::getVelocity() const
     return AbstractAdapterVelocityPropertyGetter::getVelocity();
 }
 
-AbstractAdapterRotableCheckFuel::AbstractAdapterRotableCheckFuel(const AbstractObjectPtr& object)
-    : AbstractAdapterFuelPropertyGetter{ object }
-    , AbstractAdapterVelocityRotatePropertyGetter{ object }
-{
-}
-
 AdapterRotableCheckFuel::AdapterRotableCheckFuel(const AbstractObjectPtr& object)
     : AbstractAdapter{ object }
-    , AbstractAdapterRotableCheckFuel{ object }
 {
 }
 

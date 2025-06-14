@@ -4,16 +4,8 @@
 
 namespace otg {
 
-AbstractAdapterMovable::AbstractAdapterMovable(const AbstractObjectPtr& object)
-    : AbstractAdapterPositionPropertyGetter{ object }
-    , AbstractAdapterVelocityPropertyGetter{ object }
-    , AbstractAdapterPositionPropertySetter{ object }
-{
-}
-
 AdapterMovable::AdapterMovable(const AbstractObjectPtr& object)
     : AbstractAdapter{ object }
-    , AbstractAdapterMovable{ object }
 {
 }
 

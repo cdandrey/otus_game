@@ -1,6 +1,10 @@
 
 #pragma once
 
+#include <any>
+#include <string_view>
+#include <unordered_map>
+
 namespace otg {
 
 using PropertyKey = std::string_view;
