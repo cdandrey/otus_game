@@ -1,6 +1,6 @@
 #include "CommandInterrupt.h"
 
-#include "../types/ExceptionError.h"
+#include "types/ExceptionError.h"
 
 namespace otg {
 

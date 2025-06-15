@@ -2,7 +2,7 @@
 #pragma once
 
 #include "AbstractCommand.h"
-#include "../adapters/AdapterCheckFuel.h"
+#include "adapters/AdapterCheckFuel.h"
 
 namespace otg {
 

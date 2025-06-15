@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 
-#include "../types/ExceptionError.h"
-#include "../types/Property.h"
+#include "types/ExceptionError.h"
+#include "types/Property.h"
 
 namespace otg {
 

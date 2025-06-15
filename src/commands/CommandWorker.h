@@ -1,11 +1,12 @@
 #pragma once
 
-#include "AbstractCommand.h"
 
 #include <mutex>
 #include <thread>
 #include <atomic>
 #include <concurrent_queue.h>
+
+#include "AbstractCommand.h"
 
 namespace otg {
 

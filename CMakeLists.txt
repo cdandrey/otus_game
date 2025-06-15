@@ -8,35 +8,23 @@ else()
     project(${this} VERSION 0.0.1)
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-include_directories(SYSTEM
-	"${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/"
-)
+add_subdirectory(3rdparty)
+add_subdirectory(src)
 
-add_subdirectory("src")
-add_subdirectory("3rdparty")
+add_executable(OTG src/main.cpp)
 
-add_executable(OTG
-    src/main.cpp
-)
-target_link_libraries(OTG
-    OtgLib
-)
-target_include_directories(OTG
-	PRIVATE
-	"${OTG_3RDPARTY_INCLUDE_DIRECTORIES}"
-	"${CMAKE_CURRENT_SOURCE_DIR}"
-)
+target_link_libraries(OTG PRIVATE OtgLib Expected)
 
-if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
+if (DEFINED ENV{TRAVIS_BUILD_NUMBER} AND NOT "$ENV{TRAVIS_BUILD_NUMBER}" STREQUAL "")
     
     set(CPACK_GENERATOR DEB)
-
     set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
     set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
     set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-
     set(CPACK_PACKAGE_CONTACT cdandrey@gmail.com)
 
     include(CPack)

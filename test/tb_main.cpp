@@ -1,19 +1,19 @@
 #include <gtest/gtest.h>
 #include <typeinfo>
 
-#include "../src/adapters/AbstractAdapter.cpp"
-#include "../src/adapters/AdapterMovable.cpp"
-#include "../src/adapters/AdapterRotable.cpp"
-#include "../src/commands/CommandInterrupt.cpp"
-#include "../src/commands/CommandMovable.cpp"
-#include "../src/commands/CommandRotable.cpp"
-#include "../src/commands/CommandStop.cpp"
-#include "../src/commands/CommandWorker.cpp"
-#include "../src/objects/Objects.cpp"
-#include "../src/types/ExceptionError.cpp"
-#include "../src/types/Point.cpp"
-#include "../src/types/VectorVelocity.cpp"
-#include "../src/types/Angel.cpp"
+#include "adapters/AbstractAdapter.cpp"
+#include "adapters/AdapterMovable.cpp"
+#include "adapters/AdapterRotable.cpp"
+#include "commands/CommandInterrupt.cpp"
+#include "commands/CommandMovable.cpp"
+#include "commands/CommandRotable.cpp"
+#include "commands/CommandStop.cpp"
+#include "commands/CommandWorker.cpp"
+#include "objects/Objects.cpp"
+#include "types/ExceptionError.cpp"
+#include "types/Point.cpp"
+#include "types/VectorVelocity.cpp"
+#include "types/Angel.cpp"
 
 namespace detail {
 

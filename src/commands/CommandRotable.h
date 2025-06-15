@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AbstractCommand.h"
-#include "../adapters/AdapterRotable.h"
+#include "adapters/AdapterRotable.h"
 
 namespace otg {
 

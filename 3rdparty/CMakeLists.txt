@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}")
+# Header-only libraries do not require compilation; simply mark them as INTERFACE
+add_subdirectory(expected)
 
-add_compile_options(${CMAKE_CXX_FLAGS})
-
-# expected
-add_subdirectory("expected")
-
-set(OTG_3RDPARTY_INCLUDE_DIRECTORIES "${INCLUDE_DIRS}" PARENT_SCOPE)
+# Collect all header file directories from nested folders.
+set(OTG_3RDPARTY_INCLUDE_DIRECTORIES
+    "${CMAKE_CURRENT_SOURCE_DIR}/expected"
+    # If you have more, add them here.
+    # "${CMAKE_CURRENT_SOURCE_DIR}/что-то-ещё"
+    PARENT_SCOPE
+)

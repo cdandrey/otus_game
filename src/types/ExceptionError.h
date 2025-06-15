@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <expected/expected.h>
+#include <expected.h>
 
 namespace otg {
 

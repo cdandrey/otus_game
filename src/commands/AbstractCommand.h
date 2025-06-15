@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../types/Property.h"
 #include <memory>
+
+#include "types/Property.h"
 
 namespace otg {
 
